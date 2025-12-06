@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getImages } from '../Common/const';
+import { getImages, LazyImage } from '../Common/const';
 
 
 const SelectFilterModal = ({ close,updateFilter,activeFilter, filterData, locationFilters = ["Boerne, TX", "Austin, TX"] }) => {
@@ -48,7 +48,7 @@ const SelectFilterModal = ({ close,updateFilter,activeFilter, filterData, locati
                         Select {activeFilter}
                     </h1>
                     <button className="sm-box-close" type="button" onClick={close}>
-                        <img src={getImages('white-close.svg')}/>
+                        <LazyImage src={getImages('white-close.svg')} alt="close" width={14} height={14} sizes="14px" />
                     </button>
                 </div>
                 <div className="modal-body px-4 py-4">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getImages } from '../Common/const';
+import { getImages, LazyImage } from '../Common/const';
 
 const SearchComponent = ({filteredVehicleData, searchText, setSearchText, openVDP}) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -82,7 +82,7 @@ const SearchComponent = ({filteredVehicleData, searchText, setSearchText, openVD
                 <button className='black-btn lg-btn srs-btn' type='button' >
                     <span className='d-none d-md-block'>Search</span>
                     <span className='d-md-none'>
-                        <img src={getImages('search-icon.svg')} alt='search' />
+                        <LazyImage src={getImages('search-icon.svg')} alt='search' width={20} height={20} sizes="20px" />
                     </span>
                 </button>
             </div>

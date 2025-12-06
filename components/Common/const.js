@@ -2,6 +2,18 @@ export const getImages = (imageName) => {
   return `/images/${imageName}`;
 };
 
-export const LazyImage = ({ src, alt }) => {
-  return <img src={src} alt={alt} />;
+import Image from 'next/image';
+
+export const LazyImage = ({ src, alt, width, height, sizes, className, priority = false }) => {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={sizes || '100vw'}
+      className={className}
+      priority={priority}
+    />
+  );
 };

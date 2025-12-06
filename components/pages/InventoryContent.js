@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import SrpLeft from '../Srp/SrpLeft';
 import { VehicleContext } from '../../context/VehicleContext';
 import SearchComponent from '../Srp/SearchComponent';
-import { getImages } from '../Common/const';
+import { getImages, LazyImage } from '../Common/const';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import Slider from 'react-slick';
@@ -293,7 +293,7 @@ export default function Inventory() {
                                 <div className='srp-title text-uppercase'>Search Results</div>
                                 <div className='d-lg-none'>
                                     <button type='button' className='filter-btn' onClick={handleFilterBtn}>
-                                        Filters <img src={getImages('filter-icon.svg')} alt='icon' />
+                                        Filters <LazyImage src={getImages('filter-icon.svg')} alt='icon' width={16} height={16} sizes="16px" />
                                     </button>
                                 </div>
                             </div>
@@ -324,7 +324,7 @@ export default function Inventory() {
                                                                 />
                                                             </div>
                                                         )} */}
-                                                        {(priceFilterData.current_min > priceFilterData.min || priceFilterData.current_max < priceFilterData.max) && <div className='tag-btn me-2 mb-0'>Price {priceFilterData.current_min == priceFilterData.min ? "Min" : numberFormatter(priceFilterData.current_min, true)} - {priceFilterData.current_max == priceFilterData.max ? "Max" : numberFormatter(priceFilterData.current_max, true)} <img src={getImages('close-anticon.svg')} onClick={() => { handlePriceSliderChange([priceFilterData.min, priceFilterData.max]) }} /></div>}
+                                                        {(priceFilterData.current_min > priceFilterData.min || priceFilterData.current_max < priceFilterData.max) && <div className='tag-btn me-2 mb-0'>Price {priceFilterData.current_min == priceFilterData.min ? "Min" : numberFormatter(priceFilterData.current_min, true)} - {priceFilterData.current_max == priceFilterData.max ? "Max" : numberFormatter(priceFilterData.current_max, true)} <LazyImage src={getImages('close-anticon.svg')} alt="Remove" width={12} height={12} sizes="12px" onClick={() => { handlePriceSliderChange([priceFilterData.min, priceFilterData.max]) }} /></div>}
                                                         {/* {(mileageFilterData.current_min > mileageFilterData.min || mileageFilterData.current_max < mileageFilterData.max) && <div className='tag-btn me-2 mb-0'>Mileage {mileageFilterData.current_min == mileageFilterData.min ? "Min" : numberFormatter(mileageFilterData.current_min)} - {mileageFilterData.current_max == mileageFilterData.max ? "Max" : numberFormatter(mileageFilterData.current_max)} <img src={getImages('close-anticon.svg')} onClick={() => { handleMileageSliderChange([mileageFilterData.min, mileageFilterData.max]) }} /></div>} */}
                                                         {Object.keys(currentFilterData)
                                                             .filter((key) => currentFilterData[key].some(item => item.isSelected))
@@ -334,11 +334,14 @@ export default function Inventory() {
                                                                 return (
                                                                     <div className='tag-btn me-2 mb-0' key={index}>
                                                                         {displayLabel}
-                                                                        <img
+                                                                        <LazyImage
                                                                             src={getImages('close-anticon.svg')}
                                                                             alt="Remove"
+                                                                            width={12}
+                                                                            height={12}
+                                                                            sizes="12px"
                                                                             onClick={() => clearFilter(key)}
-                                                                            style={{ cursor: "pointer" }}
+                                                                            className="cursor-pointer"
                                                                         />
                                                                     </div>
                                                                 );
@@ -381,7 +384,7 @@ export default function Inventory() {
                                                         </>
                                                         :
                                                         <div style={{ cursor: 'pointer' }} onClick={() => openVDP(item.vdp_url ?? "used-" + item.vin)} key={"vdp" + index}>
-                                                            <img src={getImages('srp_coming_soon.webp')} alt='' />
+                                                            <LazyImage src={getImages('srp_coming_soon.webp')} alt='' width={828} height={230} sizes="(max-width: 768px) 100vw, 33vw" />
                                                         </div>
                                                     }
                                                 </div>

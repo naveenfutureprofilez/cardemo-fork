@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { getImages } from '../Common/const'
+import { getImages, LazyImage } from '../Common/const'
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 import { Fancybox as NativeFancybox } from "@fancyapps/ui";
@@ -376,7 +376,7 @@ const Vdp = () => {
                         <div className='d-flex align-items-center vdpb-left'>
                             <div>
                                 <div className='brand-logo'>
-                                    <img src={getImages(`logos/${vehicleData.make}.png`)} />
+                                    <LazyImage src={getImages(`logos/${vehicleData.make}.png`)} alt={vehicleData.make} width={72} height={72} sizes="72px" />
                                 </div>
                             </div>
                             <div>
@@ -401,46 +401,46 @@ const Vdp = () => {
                     <div className='row vdpg-block'>
                         <div className='col-md-6 col-6'>
                             <div className='vdpg-box'>
-                                <img src={getImages('vdp-thumb1.webp')} />
+                                <LazyImage src={getImages('vdp-thumb1.webp')} alt="thumb1" width={600} height={400} sizes="(max-width: 768px) 100vw, 50vw" />
                             </div>
                         </div>
                         <div className='col-md-6 col-6'>
                             <div className='vdpg-box'>
-                                <img src={getImages('vdp-thumb2.webp')} />
+                                <LazyImage src={getImages('vdp-thumb2.webp')} alt="thumb2" width={600} height={400} sizes="(max-width: 768px) 100vw, 50vw" />
                             </div>
                         </div>
                         <div className='col-md-4 col-6'>
                             <div className='vdpg-box'>
-                                <img src={getImages('vdp-thumb3.webp')} />
+                                <LazyImage src={getImages('vdp-thumb3.webp')} alt="thumb3" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                             </div>
                         </div>
                         <div className='col-md-4 col-6'>
                             <div className='vdpg-box'>
-                                <img src={getImages('vdp-thumb4.webp')} />
+                                <LazyImage src={getImages('vdp-thumb4.webp')} alt="thumb4" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                             </div>
                         </div>
                         {isMobile &&(
                             <>
                                 <div className='col-md-4 col-6'>
                                     <div className='vdpg-box'>
-                                        <img src={getImages('vdp-thumb4.webp')} />
+                                        <LazyImage src={getImages('vdp-thumb4.webp')} alt="thumb4" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                                     </div>
                                 </div>
                                 <div className='col-md-4 col-6'>
                                     <div className='vdpg-box'>
-                                        <img src={getImages('vdp-thumb4.webp')} />
+                                        <LazyImage src={getImages('vdp-thumb4.webp')} alt="thumb4" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                                     </div>
                                 </div>
                                 <div className='col-md-4 col-6'>
                                     <div className='vdpg-box'>
-                                        <img src={getImages('vdp-thumb4.webp')} />
+                                        <LazyImage src={getImages('vdp-thumb4.webp')} alt="thumb4" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                                     </div>
                                 </div>
                             </>
                         )}
                         <div className='col-md-4 col-6'>
                             <div className='vdpg-box position-relative'>
-                                <img src={getImages('vdp-thumb5.webp')} />
+                                <LazyImage src={getImages('vdp-thumb5.webp')} alt="thumb5" width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
                                 <div className='vdpg-count'>+15</div>
                             </div>
                         </div>
@@ -623,7 +623,7 @@ const Vdp = () => {
                                                 <div className='row mt-3 align-items-center about-action-flex wow fadeInUp' data-wow-delay="0.6s">
                                                     <div className='col-md-6 fb-contact-info'>
                                                         <a href='tel:5127771240' className='d-inline-flex align-items-center phone-no-text'>
-                                                            <span className='call-icon me-3'><img src={getImages('local-phone-material.png')} alt='call' /></span>
+                                                            <span className='call-icon me-3'><LazyImage src={getImages('local-phone-material.png')} alt='call' width={24} height={24} sizes="24px" /></span>
                                                             <span>(512) 777-1240</span>
                                                         </a>
                                                     </div>

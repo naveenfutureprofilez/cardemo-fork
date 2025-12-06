@@ -1,4 +1,4 @@
-import { getImages } from '@/components/Common/const';
+import { getImages, LazyImage } from '@/components/Common/const';
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
 import SeoMeta from '../components/Common/SeoMeta';
@@ -31,7 +31,7 @@ export default function AboutUs() {
             <section className="about-content-wrap">
                 <div className="container mxw-1100">
                     <div className="about-team-block">
-                        <img src={getImages('about-team.webp')} alt="team" />
+                        <LazyImage src={getImages('about-team.webp')} alt="team" width={1100} height={411} sizes="(max-width: 768px) 100vw, 1100px" />
                         <div className="d-flex align-items-center justify-content-between atb-flex">
                             <div className="md-title font-1-4em text-uppercase pe-3">Jeff Ahlfors</div>
                             <div className="md-title font-1-4em text-uppercase text-end">Michael Handwerger</div>

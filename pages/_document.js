@@ -13,15 +13,22 @@ export default function Document() {
         />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
-        {/* Bootstrap 5.1.3 CSS */}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossOrigin="anonymous" />
-        {/* Load Lato from Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Bootstrap 5.1.3 CSS (loaded asynchronously to avoid render-blocking) */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossOrigin="anonymous"
+          media="print"
+          onLoad={function(){this.media='all'}}
         />
+        {/* Preload critical local fonts */}
+        <link rel="preload" as="font" href="/fonts/EurostileRegular.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/HelveticaNeue-Light.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/HelveticaNeue-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/HelveticaNeue-Bold.woff2" type="font/woff2" crossOrigin="anonymous" />
+        {/* Preload hero image for faster LCP */}
+        <link rel="preload" as="image" href="/images/banner-image.webp" />
         {/* WOW.js for scroll animations */}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" defer />
         <script
