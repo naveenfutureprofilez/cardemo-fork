@@ -1,6 +1,19 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import fs from 'fs';
+import path from 'path';
 
 export default function Document() {
+  // Read critical CSS at build time
+  let criticalCSS = '';
+  try {
+    criticalCSS = fs.readFileSync(
+      path.join(process.cwd(), 'styles', 'critical.css'),
+      'utf8'
+    );
+  } catch (e) {
+    console.error('Failed to load critical CSS:', e);
+  }
+
   return (
     <Html lang="en" className="font-helvetica">
       <Head>
@@ -13,41 +26,49 @@ export default function Document() {
         />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
+        
+        {/* Inline critical CSS for instant rendering */}
+        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
+        
         {/* Preconnect to critical domains */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://alphaone.greenlightautomotivesolutions.com" />
         
-        {/* Bootstrap 5.1.3 CSS - Preload */}
-        <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" as="style" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossOrigin="anonymous" media="print" onLoad="this.media='all'" />
-        <noscript><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossOrigin="anonymous" /></noscript>
+        {/* Preload hero image */}
+        <link rel="preload" as="image" href="/images/banner-image.webp" />
         
-        {/* Load Lato from Google Fonts - Optimized */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
-          rel="stylesheet"
-          media="print" 
-          onLoad="this.media='all'"
+        {/* Bootstrap 5.1.3 CSS - Keep blocking to preserve design */}
+        <link 
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+          crossOrigin="anonymous"
         />
-        {/* WOW.js for scroll animations - Async load */}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" async />
+        
+        {/* Self-hosted Lato fonts */}
+        <link rel="stylesheet" href="/fonts/lato/lato.css" />
+        
+        {/* WOW.js for scroll animations - Load after page interactive */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              document.addEventListener("DOMContentLoaded", function () {
-                if (typeof WOW !== 'undefined') {
-                  var wow = new WOW({
-                    boxClass: 'wow',
-                    animateClass: 'animated',
-                    offset: 0,
-                    mobile: true,
-                    live: true
-                  });
-                  wow.init();
-                }
+              window.addEventListener('load', function() {
+                var script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js';
+                script.onload = function() {
+                  if (typeof WOW !== 'undefined') {
+                    new WOW({
+                      boxClass: 'wow',
+                      animateClass: 'animated',
+                      offset: 0,
+                      mobile: true,
+                      live: true
+                    }).init();
+                  }
+                };
+                document.body.appendChild(script);
               });
             `,
           }}

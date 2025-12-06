@@ -1,0 +1,163 @@
+/* Critical CSS for above-the-fold content - Inline in <head> for fast First Paint */
+
+/* Essential font faces */
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('/fonts/HelveticaNeue-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Eurostile';
+  src: url('/fonts/EurostileRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  font-family: 'HelveticaNeue', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header */
+.header-wrap {
+  padding: 15px 0 7px;
+}
+
+/* Banner section */
+.banner-wrap {
+  width: 100%;
+  height: calc(100vh - 100px);
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-pos {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.banner-shadow {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  background: linear-gradient(180deg, rgba(34, 34, 34, 0) 0, #222 100%);
+  height: 200px;
+  bottom: 0;
+}
+
+.banner-title {
+  font-family: Eurostile;
+  font-size: 50px;
+  font-weight: 400;
+  color: #fff;
+  line-height: normal;
+  letter-spacing: normal;
+  background: url(/images/shadow.png) center center/100% 100% no-repeat;
+  padding: 70px 45px;
+}
+
+.banner-title span {
+  font-size: 70px;
+  font-weight: 700;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-lg {
+  max-width: 1400px;
+}
+
+/* Utility classes */
+.d-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+/* Banner box (form) */
+.banner-box {
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  background-color: rgb(255 255 255 / .1);
+  padding: 30px 50px;
+  width: 420px;
+  min-width: 420px;
+  min-height: 495px;
+}
+
+/* Typography */
+.lg-title {
+  font-family: Eurostile;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: normal;
+  color: #f4eeee;
+}
+
+/* Buttons */
+.white-btn {
+  padding: 9px 20px;
+  border: 1px solid white;
+  background-color: white;
+  font-family: Eurostile;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: normal;
+  text-align: center;
+  color: black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Slideshow background */
+.slideshow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}

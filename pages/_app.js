@@ -3,7 +3,7 @@ import '@/styles/utilities.css';  // Critical utility classes
 import '@/styles/globals.css';    // Global styles
 import '@/styles/react-styles.css'; // Component styles
 import '@/styles/responsive.css';  // Responsive styles
-import '@/styles/animate.css';     // Animation styles (can be deferred)
+import '@/styles/animate.css';     // Animation styles
 import { VehicleContextProvider } from '../context/VehicleContext';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
