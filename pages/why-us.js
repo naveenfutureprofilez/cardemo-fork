@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Slider from 'react-slick';
-import { getImages, LazyImage } from '@/components/Common/const';
+import { getImages } from '@/components/Common/const';
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
 import SeoMeta from '../components/Common/SeoMeta';
@@ -145,7 +145,7 @@ export default function WhyUs() {
             <section className="about-wrap">
                 <div className="d-lg-flex align-items-center">
                     <div className="aw-left w-50 wow reveal fadeInLeft">
-                        <LazyImage src={getImages('about-side-bg.webp')} alt="Alpha One Motors" width={800} height={450} sizes="(max-width: 768px) 100vw, 50vw" />
+                        <img src={getImages('about-side-bg.webp')} alt="Alpha One Motors" />
                     </div>
                     <div className="aw-right w-50 wow reveal fadeInRight">
                         <div className="mxw-560">
@@ -166,7 +166,7 @@ export default function WhyUs() {
                 </div>
                 <div className="d-lg-flex align-items-center reverse-block">
                     <div className="aw-left w-50 order-2 wow reveal fadeInRight">
-                        <LazyImage src={getImages('about-side-bg2.webp')} alt="Sell Your Exotic" width={800} height={450} sizes="(max-width: 768px) 100vw, 50vw" />
+                        <img src={getImages('about-side-bg2.webp')} alt="Sell Your Exotic" />
                     </div>
                     <div className="aw-right w-50 wow reveal fadeInLeft">
                         <div className="mxw-560">

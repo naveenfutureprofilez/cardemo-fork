@@ -1,7 +1,7 @@
 import React from 'react'
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { getImages, LazyImage } from '../Common/const';
+import { getImages } from '../Common/const';
 
 const SrpLeft = ({
     mobFilter,
@@ -23,7 +23,7 @@ const SrpLeft = ({
                 <div className='srpl-heading d-lg-none'>
                     <div className='csmodal-title'>Filters</div>
                     <button type='button' className='filter-close' onClick={handleCloseFilter}>
-                        <LazyImage src={getImages('close-icon.webp')} alt='close' width={18} height={18} sizes="18px" />
+                        <img src={getImages('close-icon.webp')} alt='close' />
                     </button>
                 </div>
                 <div className='srpl-body'>
@@ -71,7 +71,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('year.svg')} alt='Year' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('year.svg')} />
                                         </div>
                                         <div className='slc-title'>Year</div>
                                     </div>
@@ -86,7 +86,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('make.svg')} alt='Make' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('make.svg')} />
                                         </div>
                                         <div className='slc-title'>Make</div>
                                     </div>
@@ -101,7 +101,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('model.svg')} alt='Model' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('model.svg')} />
                                         </div>
                                         <div className='slc-title'>Model</div>
                                     </div>
@@ -116,7 +116,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('mileage.svg')} alt='Mileage' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('mileage.svg')} />
                                         </div>
                                         <div className='slc-title'>Mileage</div>
                                     </div>
@@ -131,7 +131,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('ext-color.svg')} alt='Ext Color' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('ext-color.svg')} />
                                         </div>
                                         <div className='slc-title'>Ext Color</div>
                                     </div>
@@ -146,7 +146,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('int-color.svg')} alt='Int Color' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('int-color.svg')} />
                                         </div>
                                         <div className='slc-title'>Int Color</div>
                                     </div>
@@ -161,7 +161,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('body-style.svg')} alt='Body Style' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('body-style.svg')} />
                                         </div>
                                         <div className='slc-title'>Body Style</div>
                                     </div>
@@ -176,7 +176,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <LazyImage src={getImages('transmission.svg')} alt='Transmission' width={24} height={24} sizes="24px" />
+                                            <img src={getImages('transmission.svg')} />
                                         </div>
                                         <div className='slc-title'>Transmission</div>
                                     </div>

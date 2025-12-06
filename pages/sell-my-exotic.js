@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link';
 import Slider from "react-slick";
-import { getImages, LazyImage } from '../components/Common/const'
+import { getImages } from '../components/Common/const'
 import ModalLayout from '../components/Common/ModalLayout'
 import { VehicleContext } from '../context/VehicleContext';
 import SeoMeta from '../components/Common/SeoMeta';
@@ -192,7 +192,7 @@ const SellMyExotic = () => {
                     backgroundImage: `url(${getImages('sell-exotic-hero.webp')})`
                 }}
             >
-                <LazyImage src={getImages('sell-exotic-hero.webp')} alt="" width={1200} height={600} sizes="(max-width: 768px) 100vw, 100vw" className="sr-only" priority />
+                <img src={getImages('sell-exotic-hero.webp')} alt="" width="0" height="0" style={{display: "none !important"}} fetchPriority="high"/>
                 <div className='w-100'>
                     <div className='xl-title text-uppercase text-center font-80 letter-spacing-3 wow reveal fadeInUp'>SAME DAY OFFERS</div>
                     <div className='lg-title font-40 text-uppercase text-center fw-300 mt-3 wow reveal fadeInUp'>Enjoy our stress-free process</div>
@@ -214,7 +214,7 @@ const SellMyExotic = () => {
                             <div className='sm-title text-center roboto mt-100 fw-500 text-white wow reveal fadeInUp'>Simple, Fast & Free</div>
                             <div className='text-center pt-3 wow reveal fadeInUp'>
                                     <span className='px-5 d-inline-block hpb-border-t pt-3'>
-                                        <LazyImage src={getImages('tg-logo-bw.png')} alt="TG Logo" width={120} height={40} sizes="120px" />
+                                        <img loading="lazy" src={getImages('tg-logo-bw.png')} />
                                     </span>
                             </div>
                         </div>
@@ -252,7 +252,7 @@ const SellMyExotic = () => {
                                 <div className="review-item" key={index}>
                                     <div className="review-box">
                                             <span className='google-icon'>
-                                                <LazyImage src={getImages('google-logo.png')} alt='google' width={64} height={64} sizes="64px" />
+                                                <img loading="lazy" src={getImages('google-logo.png')} alt='google' />
                                             </span>
                                         <div className="review-mnh">
                                             <p className="clamp-4">
@@ -263,7 +263,7 @@ const SellMyExotic = () => {
                                             <div>
                                                 <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
                                                     {[...Array(5)].map((_, i) => (
-                                                        <LazyImage key={i} className="me-1" src={getImages("star.svg")} alt="star" width={18} height={18} sizes="18px" />
+                                                        <img loading="lazy" key={i} className="me-1" src={getImages("star.svg")} alt="star" />
                                                     ))}
                                                 </div>
                                                 <div className="reviewer-name">{review.name}</div>
@@ -282,7 +282,7 @@ const SellMyExotic = () => {
                     <div className='d-lg-flex justify-content-between sot-flex'>
                         <div className='sot-left wow reveal fadeInUp'>
                             <div className='mb-3'>
-                                <LazyImage src={getImages('tg-logo-bw.png')} alt="TG Logo" width={180} height={60} sizes="180px" />
+                                <img loading="lazy" src={getImages('tg-logo-bw.png')} />
                             </div>
                             <div className='lg-title text-start font-2-2em roboto'>Sell or Trade your Vehicle</div>
                         </div>
