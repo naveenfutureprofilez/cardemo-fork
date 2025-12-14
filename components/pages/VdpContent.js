@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { getImages } from '../Common/const'
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
-// Defer Fancybox until user opens gallery to reduce JS on initial load
 import Slider from "react-slick";
 import { Field, Form, Formik } from 'formik';
 import ValidationError from '../Errors/ValidationError';

@@ -7,7 +7,8 @@ import SearchComponent from '../Srp/SearchComponent';
 import { getImages } from '../Common/const';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-import Slider from 'react-slick';
+import dynamic from 'next/dynamic';
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import ModalLayout from '../Common/ModalLayout';
 import SelectFilterModal from '../Srp/SelectFilterModal';
 import Header from '../Common/Header';
@@ -15,15 +16,14 @@ import Footer from '../Common/Footer';
 export default function Inventory() {
     const router = useRouter();
     const { getVehicleData, vehicleData, filteredVehicleData, searchText, setSearchText, numberFormatter, priceFormatter, currentFilterData, setCurrentFilterData, activeFilter, setActiveFilter, priceFilterData, setPriceFilterData, } = useContext(VehicleContext);
-    console.log("filteredVehicleData", filteredVehicleData)
-    console.log("currentFilterData", currentFilterData)
+    
     const [isSticky, setIsSticky] = useState(false);
     //const [srpFilter, setSrpFilter] = useState(false);
     //const [pageSize, setPageSize] = useState(50);
     const [isDataLoaded, setIsDataLoaded] = useState(true);
     const [isOpacity, setIsOpacity] = useState(true);
     const [value, setValue] = useState([priceFilterData.min, priceFilterData.max]);
-    console.log("vehicleData", vehicleData)
+    
     const handleInputChange = (index, event) => {
         let newValue = Number(event.target.value);
         if (!isNaN(newValue)) {
@@ -99,24 +99,7 @@ export default function Inventory() {
         }
     }, []);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const handleScroll = () => {
-                const topSection = document.getElementById('srpFilter');
-                if (topSection) {
-                    const topSectionRect = topSection.getBoundingClientRect();
-                    const isTopSectionVisible = topSectionRect.top <= 0;
-                    setIsSticky(isTopSectionVisible);
-                }
-            };
-
-            window.addEventListener('scroll', handleScroll);
-
-            return () => {
-                window.removeEventListener('scroll', handleScroll);
-            };
-        }
-    }, []);
+    
     const [openFilterModal, setOpenFilterModal] = useState(false);
 
     const [filterData, setFilterData] = useState([]);
@@ -142,8 +125,7 @@ export default function Inventory() {
     }
 
     const clearFilter = (field) => {
-        console.log(field);
-        console.log(currentFilterData[field]);
+        
 
         const filter_data = [];
 
@@ -203,7 +185,7 @@ export default function Inventory() {
 
         }
 
-        console.log("make test", vehicleMake, currentFilterData);
+        
 
     }, [vehicleMake, vehicleData]);
 

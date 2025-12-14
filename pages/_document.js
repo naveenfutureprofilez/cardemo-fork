@@ -37,7 +37,6 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://alphaone.greenlightautomotivesolutions.com" />
         
         {/* Preload critical resources */}
-        <link rel="preload" as="image" href="/images/banner-image.webp" />
         <link rel="preload" as="font" href="/fonts/HelveticaNeue-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="font" href="/fonts/EurostileRegular.woff2" type="font/woff2" crossOrigin="anonymous" />
         
