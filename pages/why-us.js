@@ -120,6 +120,7 @@ export default function WhyUs() {
                     backgroundImage: `url(${getImages('about-hero.webp')})`
                 }}
             >
+                <Image src={getImages('about-hero.webp')} alt="" width={1600} height={900} priority style={{display: 'none'}} />
                 <div className="w-100">
                     <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xl!text-3xl md:!text-5xl lg:!text-7xl text-uppercase text-center font-80 letter-spacing-3 wow reveal fadeInUp">
                         Why Choose Us
@@ -134,7 +135,7 @@ export default function WhyUs() {
                     </div>
                 </div>
             </section>
-
+            <main role="main">
             <section className="about-info-wrap">
                 <div className="container">
                     <div className="d-md-flex align-items-center justify-content-between">
@@ -165,7 +166,7 @@ export default function WhyUs() {
             <section className="about-wrap">
                 <div className="d-lg-flex align-items-center">
                     <div className="aw-left w-50 wow reveal fadeInLeft">
-                        <img src={getImages('about-side-bg.webp')} alt="Alpha One Motors" />
+                        <Image src={getImages('about-side-bg.webp')} alt="Alpha One Motors" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" />
                     </div>
                     <div className="aw-right w-50 wow reveal fadeInRight">
                         <div className="mxw-560">
@@ -186,7 +187,7 @@ export default function WhyUs() {
                 </div>
                 <div className="d-lg-flex align-items-center reverse-block">
                     <div className="aw-left w-50 order-2 wow reveal fadeInRight">
-                        <img src={getImages('about-side-bg2.webp')} alt="Sell Your Exotic" />
+                        <Image src={getImages('about-side-bg2.webp')} alt="Sell Your Exotic" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" />
                     </div>
                     <div className="aw-right w-50 wow reveal fadeInLeft">
                         <div className="mxw-560">
@@ -257,6 +258,7 @@ export default function WhyUs() {
                     </div>
                 </div>
             </section>
+            </main>
 
             <Footer />
         </>

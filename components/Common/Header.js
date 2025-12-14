@@ -1,5 +1,6 @@
 import { useState, forwardRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { getImages } from './const';
 
@@ -27,17 +28,19 @@ const Header = forwardRef(function Header({ secref }, ref) {
                 <div className='container container-lg'>
                     <div className='md:!pb-4 md:!pt-3 header-flex d-flex justify-content-between'>
                         <div className='main-logo flex items-center'>
-                            <Link href="/" prefetch={false}><img src={getImages('alpha-one-logo.webp')} alt="Alpha One Motors" /></Link>
+                            <Link href="/" prefetch={false}>
+                                <Image src={getImages('alpha-one-logo.webp')} alt="Alpha One Motors" width={220} height={40} />
+                            </Link>
                         </div>
                         
                         <div className={`main-menu ${isMob ? 'active' : ''}`}>
                             <div className='d-lg-none'>
                                 <div className='social-links'>
                                     <Link href="tel:5127771240">
-                                        <img src={getImages('black-phone-material.svg')} alt="Phone" />
+                                        <Image src={getImages('black-phone-material.svg')} alt="Phone" width={24} height={24} />
                                     </Link>
-                                    <a href='https://www.facebook.com/alphaonemotors/' target='_blank' rel="noopener noreferrer" className='ms-3'><img src={getImages('fb-icon.svg')} alt="Facebook" /></a>
-                                    <a href='https://www.instagram.com/alpha_one_motors/' target='_blank' rel="noopener noreferrer" className='ms-3'><img src={getImages('instagram-font-awesome.svg')} alt="Instagram" /></a>
+                                    <a href='https://www.facebook.com/alphaonemotors/' target='_blank' rel="noopener noreferrer" className='ms-3'><Image src={getImages('fb-icon.svg')} alt="Facebook" width={24} height={24} /></a>
+                                    <a href='https://www.instagram.com/alpha_one_motors/' target='_blank' rel="noopener noreferrer" className='ms-3'><Image src={getImages('instagram-font-awesome.svg')} alt="Instagram" width={24} height={24} /></a>
                                 </div>
                             </div>
                             <ul className='d-flex align-items-center'>
@@ -65,8 +68,8 @@ const Header = forwardRef(function Header({ secref }, ref) {
                                 </Link>
                             </div>
                             <div className='social-links ms-4 flex items-center'>
-                                <a href='https://www.facebook.com/alphaonemotors/' target='_blank' rel="noopener noreferrer" className='ms-3'><img src={getImages('fb-icon.svg')} alt="Facebook" /></a>
-                                <a href='https://www.instagram.com/alpha_one_motors/' target='_blank' rel="noopener noreferrer" className='ms-3'><img src={getImages('instagram-font-awesome.svg')} alt="Instagram" /></a>
+                                <a href='https://www.facebook.com/alphaonemotors/' target='_blank' rel="noopener noreferrer" className='ms-3'><Image src={getImages('fb-icon.svg')} alt="Facebook" width={24} height={24} /></a>
+                                <a href='https://www.instagram.com/alpha_one_motors/' target='_blank' rel="noopener noreferrer" className='ms-3'><Image src={getImages('instagram-font-awesome.svg')} alt="Instagram" width={24} height={24} /></a>
                             </div>
                         </div>
                         <div className={`overflow-bg d-lg-none ${isMob ? 'active' : ''}`} onClick={() => onChangeBodyClass(!isMob)}></div>

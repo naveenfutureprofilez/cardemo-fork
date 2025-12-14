@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link';
-import Slider from "react-slick";
+import dynamic from 'next/dynamic';
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import Image from 'next/image';
 import { getImages } from '../components/Common/const'
 import ModalLayout from '../components/Common/ModalLayout'
@@ -189,17 +190,18 @@ const SellMyExotic = () => {
                 ogTitle="Sell Your Exotic Car | We Buy Bentley, Porsche & More | Alpha One Motors"
                 ogDescription="Looking to sell your exotic car? Alpha One Motors buys Bentley, Porsche, Ferrari, and other high-end vehicles with fast payment and nationwide pickup."
             />
-            <section className='common-banner-wrap d-flex align-items-center wow reveal fadeIn'
+            <section className='common-banner-wrap d-flex align-items-center'
                 style={{
                     backgroundImage: `url(${getImages('sell-exotic-hero.webp')})`
                 }}
             >
                 <Image src={getImages('sell-exotic-hero.webp')} alt="" width={1600} height={900} priority style={{display: 'none'}} />
                 <div className='w-100'>
-                    <div className='xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase text-center font-80 letter-spacing-3 wow reveal fadeInUp'>SAME DAY OFFERS</div>
-                    <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 text-uppercase text-center fw-300 mt-3 wow reveal fadeInUp'>Enjoy our stress-free process</div>
+                    <div className='xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase text-center font-80 letter-spacing-3'>SAME DAY OFFERS</div>
+                    <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 text-uppercase text-center fw-300 mt-3'>Enjoy our stress-free process</div>
                 </div>
             </section>
+            <main role='main'>
             <section className='hassle-process-wrap'>
                 <div className='container'>
                     <div className='hassle-process-box d-md-flex wow reveal fadeIn'>
@@ -216,7 +218,7 @@ const SellMyExotic = () => {
                             <div className='sm-title text-center roboto mt-100 fw-500 text-white wow reveal fadeInUp'>Simple, Fast & Free</div>
                             <div className='text-center pt-3 wow reveal fadeInUp'>
                                     <span className='px-5 d-inline-block hpb-border-t pt-3'>
-                                        <img loading="lazy" src={getImages('tg-logo-bw.png')} />
+                                        <Image src={getImages('tg-logo-bw.png')} alt='Trade Group' width={120} height={36} />
                                     </span>
                             </div>
                         </div>
@@ -254,7 +256,7 @@ const SellMyExotic = () => {
                                 <div className="review-item" key={index}>
                                     <div className="review-box">
                                             <span className='google-icon'>
-                                                <img loading="lazy" src={getImages('google-logo.png')} alt='google' />
+                                                <Image src={getImages('google-logo.png')} alt='google' width={64} height={64} />
                                             </span>
                                         <div className="review-mnh">
                                             <p className="clamp-4">
@@ -265,7 +267,7 @@ const SellMyExotic = () => {
                                             <div>
                                                 <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
                                                     {[...Array(5)].map((_, i) => (
-                                                        <img loading="lazy" key={i} className="me-1" src={getImages("star.svg")} alt="star" />
+                                                        <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
                                                     ))}
                                                 </div>
                                                 <div className="reviewer-name">{review.name}</div>
@@ -284,7 +286,7 @@ const SellMyExotic = () => {
                     <div className='d-lg-flex justify-content-between sot-flex'>
                         <div className='sot-left wow reveal fadeInUp'>
                             <div className='mb-3'>
-                                <img loading="lazy" src={getImages('tg-logo-bw.png')} />
+                                <Image src={getImages('tg-logo-bw.png')} alt='Trade Group' width={120} height={36} />
                             </div>
                             <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-start font-2-2em roboto'>Sell or Trade your Vehicle</div>
                         </div>
@@ -300,6 +302,7 @@ const SellMyExotic = () => {
                     </div>
                 </div>
             </section>
+            </main>
             <section className='trading-wrap'>
                 <div className='container '>
                     <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 mb-md-5 mb-3 text-center text-uppercase wow reveal fadeInUp'>Tips on Trading or Selling Your Exotic Vehicle</div>
