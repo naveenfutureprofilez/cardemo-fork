@@ -387,8 +387,8 @@ const Vdp = () => {
                                 <div className='vdp-title2 mt-1'>{vehicleData.model}</div>
                             </div>
                         </div>
-                        <div className='d-flex align-items-center vdpb-right'>
-                            <div className='mr-84'>
+                        <div className='d-flex align-items-center justify-content-between !pb-4 vdpb-right'>
+                            <div className='lg:!me-[100px]'>
                                 <div className=' vdp-label'>Price</div>
                                 <div className='vdp-price'>{priceFormatter(vehicleData.price, true)}</div>
                             </div>
@@ -422,25 +422,7 @@ const Vdp = () => {
                                 <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} />
                             </div>
                         </div>
-                        {isMobile &&(
-                            <>
-                                <div className='col-md-4 col-6'>
-                                    <div className='vdpg-box'>
-                                        <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} />
-                                    </div>
-                                </div>
-                                <div className='col-md-4 col-6'>
-                                    <div className='vdpg-box'>
-                                        <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} />
-                                    </div>
-                                </div>
-                                <div className='col-md-4 col-6'>
-                                    <div className='vdpg-box'>
-                                        <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} />
-                                    </div>
-                                </div>
-                            </>
-                        )}
+                        
                         <div className='col-md-4 col-6'>
                             <div className='vdpg-box position-relative'>
                                 <Image src={getImages('vdp-thumb5.webp')} alt='' width={320} height={180} />
