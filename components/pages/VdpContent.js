@@ -3,7 +3,8 @@ import Image from 'next/image'
 import { getImages } from '../Common/const'
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
-import Slider from "react-slick";
+import dynamic from 'next/dynamic';
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import { Field, Form, Formik } from 'formik';
 import ValidationError from '../Errors/ValidationError';
 import Header from '../Common/Header';
@@ -372,7 +373,7 @@ const Vdp = () => {
             <section className='vdp-wrap !max-h-[300px] md:!max-h-[50vh] lg:!max-h-[70vh] '  style={{ backgroundImage: `url(${getImages('vdp-hero.webp')})` }}>
                 <Image src={getImages('vdp-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display:'none'}} />
             </section>
-            <section className='vdp-hero-bottom'>
+            <section className='vdp-hero-bottom cv-auto'>
                 <div className='container'>
                     <div className='d-lg-flex align-items-center justify-content-between'>
                         <div className='d-flex align-items-center vdpb-left'>
@@ -398,7 +399,7 @@ const Vdp = () => {
                     </div>
                 </div>
             </section>
-            <section className='vdp-gallery-wrap'>
+            <section className='vdp-gallery-wrap cv-auto'>
                 <div className='container'>
                     <div className='row vdpg-block'>
                         <div className='col-md-6 col-6'>
@@ -449,7 +450,7 @@ const Vdp = () => {
                     </div>
                 </div>
             </section>
-            <section className='vdp-content-wrap'>
+            <section className='vdp-content-wrap cv-auto'>
                 <div className='container'>
                     <div className='vdpa-block mt-xl-4 row'>
                         <div className='col-xl-4 order-xl-2 mb-3 mb-xl-0'>

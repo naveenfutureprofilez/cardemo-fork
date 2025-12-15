@@ -277,6 +277,10 @@ img {
   .h-140 {
     height: 140px;
   }
+
+  .cv-auto {
+    content-visibility: auto;
+  }
 }
 .banner-title,
 .bb-title {

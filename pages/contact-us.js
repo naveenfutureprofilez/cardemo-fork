@@ -7,11 +7,7 @@ import { getImages } from '../components/Common/const';
 import Image from 'next/image';
 
 export default function ContactUs() {
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.WOW) {
-            new window.WOW({ live: false }).init();
-        }
-    }, []);
+    
 
     return (
         <>
@@ -26,6 +22,7 @@ export default function ContactUs() {
                     backgroundImage: `url(${getImages('contact-hero.webp')})`
                 }}
             >
+                <Image src={getImages('contact-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display:'none'}} />
                 <div className='container'>
                     <div className='xl-title !text-3xl md:!text-5xl lg:!text-7xl contact-title1 text-start text-uppercase letter-spacing-3 mb-3'>Contact Us</div>
                     <div className='xs-title contact-title2 text-uppercase eurostile fw-300 font-1-4em letter-spacing-1 mb-md-5 mb-4 pb-md-4'>Drop us a line, we\'d love to hear from you</div>
@@ -34,7 +31,7 @@ export default function ContactUs() {
                             <ContactForm/>
                         </div>
                         <div className='col-md-6'>
-                            <div className='contact-black-box'>
+                            <div className='contact-black-box cv-auto'>
                                 <div className='xs-title font-1-4em eurostile fw-bold mb-4'>AUSTIN OFFICE</div>
                                 <div className='d-flex align-items-center mb-4'>
                                     <div className='cb-icon'><Image src={getImages('local-phone-material.png')} alt='phone' width={24} height={24} /></div> 

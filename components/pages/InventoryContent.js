@@ -7,6 +7,7 @@ import SearchComponent from '../Srp/SearchComponent';
 import { getImages } from '../Common/const';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
+import 'slick-carousel/slick/slick.css';
 import dynamic from 'next/dynamic';
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import ModalLayout from '../Common/ModalLayout';

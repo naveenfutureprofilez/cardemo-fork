@@ -19,6 +19,7 @@ export default function AboutUs() {
                     backgroundImage: `url(${getImages('new-about-hero.webp')})`
                 }}
             >
+                <Image src={getImages('new-about-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display: 'none'}} />
                 <div className="w-100">
                     <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase text-center font-80 letter-spacing-3">
                         About Us
@@ -29,7 +30,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="about-content-wrap">
+            <section className="about-content-wrap cv-auto">
                 <div className="container mxw-1100">
                     <div className="about-team-block">
                         <Image src={getImages('about-team.webp')} alt="team" width={1200} height={600} sizes="(max-width: 768px) 100vw, 1000px" />

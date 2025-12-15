@@ -3,6 +3,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import Image from 'next/image';
+import 'slick-carousel/slick/slick.css';
 import { getImages } from '../components/Common/const'
 import ModalLayout from '../components/Common/ModalLayout'
 import { VehicleContext } from '../context/VehicleContext';
@@ -225,10 +226,10 @@ const SellMyExotic = () => {
                     <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 text-uppercase text-center fw-300 mt-3'>Enjoy our stress-free process</div>
                 </div>
             </section>
-            <main role='main'>
+            <main role='main' className='cv-auto'>
             <section className='hassle-process-wrap'>
                 <div className='container'>
-                    <div className='hassle-process-box d-md-flex'>
+                    <div className='hassle-process-box d-md-flex cv-auto'>
                         <div className='hpb-right w-50 order-2'>
                             <div className='xl-title !text-xl md:!text-4xl lg:!text-6xl text-uppercase mb-md-5 mb-4 text-center'>NO HASSLE <br />PROCESS</div>
                             <div ref={formRef}>
@@ -290,7 +291,7 @@ const SellMyExotic = () => {
                                             </p>
                                         </div>
                                         <div className="d-block align-items-end justify-content-between mt-1">
-                                            <div>
+                    <div className='cv-auto'>
                                                 <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
                                                     {[...Array(5)].map((_, i) => (
                                                         <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
+import 'slick-carousel/slick/slick.css';
 import dynamic from 'next/dynamic';
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import { getImages } from '@/components/Common/const';
@@ -151,7 +152,7 @@ export default function WhyUs() {
                 </div>
             </section>
             <main role="main">
-            <section className="about-info-wrap">
+            <section className="about-info-wrap cv-auto">
                 <div className="container">
                     <div className="d-md-flex align-items-center justify-content-between">
                         <div className="aiw-col">
@@ -178,7 +179,7 @@ export default function WhyUs() {
                 </div>
             </section>
 
-            <section className="about-wrap">
+            <section className="about-wrap cv-auto">
                 <div className="d-lg-flex align-items-center">
                     <div className="aw-left w-50">
                         <Image src={getImages('about-side-bg.webp')} alt="Alpha One Motors" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" />
@@ -219,7 +220,7 @@ export default function WhyUs() {
                 </div>
             </section>
 
-            <section className="customer-served-wrap">
+            <section className="customer-served-wrap cv-auto">
                 <div className="container">
                     <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase mb-2">
                         Don&apos;t Take our Word for it!
