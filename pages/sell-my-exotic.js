@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link';
+import Head from 'next/head';
 import dynamic from 'next/dynamic';
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 import Image from 'next/image';
@@ -207,6 +208,9 @@ const SellMyExotic = () => {
 
     return (
         <>
+            <Head>
+                <link rel="preload" as="image" href={getImages('sell-exotic-hero.webp')} />
+            </Head>
             <Header />
             <SeoMeta
                 title="Sell Your Exotic Car | We Buy Bentley, Porsche & More | Alpha One Motors"

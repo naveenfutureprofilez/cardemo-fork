@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
-import 'slick-carousel/slick/slick.css';
 import dynamic from 'next/dynamic';
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
+import Head from 'next/head';
 import { getImages } from '@/components/Common/const';
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
@@ -61,21 +60,34 @@ const reviewsList = [
 ];
 
 export default function WhyUs() {
-    const [computedSlides, setComputedSlides] = useState(4);
-    useEffect(() => {
-        const updateSlides = () => {
-            const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
-            if (w <= 768) setComputedSlides(1);
-            else if (w <= 992) setComputedSlides(2);
-            else if (w <= 1200) setComputedSlides(3);
-            else setComputedSlides(4);
-        };
-        updateSlides();
-        window.addEventListener('resize', updateSlides);
-        return () => window.removeEventListener('resize', updateSlides);
-    }, []);
-    const reviewsRef = useRef(null);
     const [reviewsReady, setReviewsReady] = useState(false);
+    const reviewsRef = useRef(null);
+    const Slider = dynamic(() => import('react-slick'), { ssr: false });
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        arrows: true,
+        lazyLoad: 'ondemand',
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
+    };
     useEffect(() => {
         if (!reviewsRef.current) return;
         const io = new IntersectionObserver((entries) => {
@@ -88,42 +100,12 @@ export default function WhyUs() {
         io.observe(reviewsRef.current);
         return () => io.disconnect();
     }, []);
-    const sliderSettings = {
-        dots: false,
-        arrows: true,
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        slidesToShow: computedSlides,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
 
     return (
         <>
+            <Head>
+                <link rel="preload" as="image" href={getImages('about-hero.webp')} />
+            </Head>
             <SeoMeta 
                 title="Why Choose Us | Alpha One Motors" 
                 description="Why choose Alpha One Motors - We Know Luxury Automotive. 5000+ customers served, 4.7 Google rating, 193 reviews."
@@ -230,43 +212,43 @@ export default function WhyUs() {
                     </div>
                     <div className="mt-70" ref={reviewsRef}>
                         {reviewsReady && (
-                        <Slider {...sliderSettings} className="wbecs-slider">
-                            {reviewsList.map((review, index) => (
-                                <div key={index}>
-                                    <div className="wbe-cs-box">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="flex items-center gap-2">
-                                                <div className="wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
-                                                    {review.name?.charAt(0).toUpperCase()}
+                            <Slider {...settings} className="wbecs-slider">
+                                {reviewsList.map((review, index) => (
+                                    <div key={index}>
+                                        <div className="wbe-cs-box">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
+                                                        {review.name?.charAt(0).toUpperCase()}
+                                                    </div>
+                                                    <div className="pl-3">
+                                                        <div className="xs-title font-bold text-black helvetica">{review.name}</div>
+                                                    </div>
                                                 </div>
-                                                <div className="pl-3">
-                                                    <div className="xs-title font-bold text-black helvetica">{review.name}</div>
+                                                <div className="g-icon">
+                                                    <Image src="/images/icon.svg" alt="Google" width={24} height={24} />
                                                 </div>
                                             </div>
-                                            <div className="g-icon">
-                                                <Image src="/images/icon.svg" alt="Google" width={24} height={24} />
+                                            <div className="flex gap-1 wbe-cs-rating mb-2">
+                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
+                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
+                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
+                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
+                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
+                                                <Image className="inline-block verify-icon ml-2" src="/images/ti-verified.svg" alt="verified" width={16} height={16} />
                                             </div>
-                                        </div>
-                                        <div className="flex gap-1 wbe-cs-rating mb-2">
-                                            <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                            <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                            <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                            <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                            <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                            <Image className="inline-block verify-icon ml-2" src="/images/ti-verified.svg" alt="verified" width={16} height={16} />
-                                        </div>
-                                        <div className="mb-1 wbe-cs-content">
-                                            <p>{review.content}</p>
-                                        </div>
-                                        <div>
-                                            <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
-                                                Read more
-                                            </a>
+                                            <div className="mb-1 wbe-cs-content">
+                                                <p>{review.content}</p>
+                                            </div>
+                                            <div>
+                                                <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
+                                                    Read more
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </Slider>
+                                ))}
+                            </Slider>
                         )}
                     </div>
                     <div className="text-center mt-75">
