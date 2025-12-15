@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const EnterVehicleInfo = ({ setOpenMoreInfoModal, setAppraisalContactInfo, formikRef }) => {
   const [step, setStep] = useState(1);
+  const recaptchaRef = useRef(null);
 
   const getValidationSchema = (currentStep) => {
     return Yup.object().shape({
@@ -33,6 +35,7 @@ const EnterVehicleInfo = ({ setOpenMoreInfoModal, setAppraisalContactInfo, formi
     zipcode: '',
     vin: '',
     desiredamount: '',
+    g_recaptcha_response: '',
   };
 
   const handleNext = async (validateForm, setTouched) => {
@@ -60,13 +63,31 @@ const EnterVehicleInfo = ({ setOpenMoreInfoModal, setAppraisalContactInfo, formi
           initialValues={initialValues}
           validationSchema={getValidationSchema(step)}
           innerRef={formikRef}
-          onSubmit={(values) => {
-            setAppraisalContactInfo(values);
-            setOpenMoreInfoModal(true);
-            setStep(1);
+          onSubmit={async (values, { setStatus, setSubmitting }) => {
+            try {
+              setStatus(null);
+              const token = recaptchaRef.current && typeof recaptchaRef.current.executeAsync === 'function'
+                ? await recaptchaRef.current.executeAsync()
+                : '';
+              if (!token) {
+                setStatus({ error: 'Please verify reCAPTCHA' });
+                return;
+              }
+              if (recaptchaRef.current && typeof recaptchaRef.current.reset === 'function') {
+                recaptchaRef.current.reset();
+              }
+              values.g_recaptcha_response = token;
+              setAppraisalContactInfo(values);
+              setOpenMoreInfoModal(true);
+              setStep(1);
+            } catch (e) {
+              setStatus({ error: 'An error occurred. Please try again.' });
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
-          {({ validateForm, setTouched }) => (
+          {({ validateForm, setTouched, isSubmitting, status }) => (
             <Form>
               {step === 1 ? (
                 <>
@@ -218,12 +239,22 @@ const EnterVehicleInfo = ({ setOpenMoreInfoModal, setAppraisalContactInfo, formi
                     </button>
                   </div>
                   <div className="w-50 ps-1">
-                    <button type="submit" className="black-btn w-100 uppercase">
-                      Submit
+                    {status && status.error && (
+                      <div className="text-error text-danger mt-2 w-100 text-center" role="alert">
+                        {status.error}
+                      </div>
+                    )}
+                    <button type="submit" className="black-btn w-100 uppercase" disabled={isSubmitting} aria-busy={isSubmitting ? 'true' : 'false'}>
+                      {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                   </div>
                 </div>
               )}
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                size="invisible"
+              />
             </Form>
           )}
         </Formik>

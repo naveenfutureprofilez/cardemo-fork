@@ -24,7 +24,7 @@ export default function ContactUs() {
             >
                 <Image src={getImages('contact-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display:'none'}} />
                 <div className='container'>
-                    <div className='xl-title !text-3xl md:!text-5xl lg:!text-7xl contact-title1 text-start text-uppercase letter-spacing-3 mb-3'>Contact Us</div>
+                    <div className='xl-title contact-title1 text-start text-uppercase letter-spacing-3 mb-3'>Contact Us</div>
                     <div className='xs-title contact-title2 text-uppercase eurostile fw-300 font-1-4em letter-spacing-1 mb-md-5 mb-4 pb-md-4'>Drop us a line, we\'d love to hear from you</div>
                     <div className='row mlr-50'>
                         <div className='col-md-6 order-md-2'>

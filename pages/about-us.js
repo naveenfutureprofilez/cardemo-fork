@@ -21,10 +21,10 @@ export default function AboutUs() {
             >
                 <Image src={getImages('new-about-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display: 'none'}} />
                 <div className="w-100">
-                    <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase text-center font-80 letter-spacing-3">
+                    <div className="xl-title text-uppercase text-center font-80 letter-spacing-3">
                         About Us
                     </div>
-                    <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 text-uppercase text-center fw-300 mt-3">
+                    <div className="lg-title font-40 text-uppercase text-center fw-300 mt-3">
                         Passion for Exotic Cars
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export default function AboutUs() {
                             <div className="md-title font-1-4em text-uppercase text-end">Michael Handwerger</div>
                         </div>
                     </div>
-                        <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-uppercase mb-lg-4 mb-3">
+                        <div className="lg-title text-uppercase mb-lg-4 mb-3">
                             Meet Our Team
                         </div>
                         <div className="common-text">

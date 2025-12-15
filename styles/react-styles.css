@@ -871,7 +871,11 @@
     height: 40px;
     z-index: 2;
     top: 50%;
-    transform: translate(0, -50%)
+    transform: translate(0, -50%);
+    text-indent: -9999px;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0
 }
 
 .review-slider .slick-next,
@@ -883,7 +887,11 @@
     height: 40px;
     z-index: 2;
     top: 50%;
-    transform: translate(0, -50%)
+    transform: translate(0, -50%);
+    text-indent: -9999px;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0
 }
 
 .review-slider .slick-dots {
@@ -1189,14 +1197,36 @@
     vertical-align: -6px
 }
 
-.wbecs-slider .slick-next,
-.wbecs-slider .slick-next:hover,
 .wbecs-slider .slick-prev,
+.wbecs-slider .slick-prev:focus,
 .wbecs-slider .slick-prev:hover {
-    width: 32px;
-    height: 32px;
-    background: #fff;
-    border-radius: 50%
+    left: -30px;
+    background: url(/images/review-prev.svg) center center/100% no-repeat;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-indent: -9999px;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0
+}
+
+.wbecs-slider .slick-next,
+.wbecs-slider .slick-next:focus,
+.wbecs-slider .slick-next:hover {
+    right: -30px;
+    background: url(/images/review-next.svg) center center/100% no-repeat;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-indent: -9999px;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0
 }
 
 .wbecs-slider .g-icon img {
@@ -1205,25 +1235,7 @@
 
 .wbecs-slider .slick-next:after,
 .wbecs-slider .slick-prev:after {
-    transition: .2s ease-out;
-    content: "";
-    display: block;
-    position: absolute;
-    border-style: solid;
-    border-width: 0 0 2px 2px;
-    border-color: #5e5e5e;
-    width: 10px;
-    height: 10px;
-    top: 50%;
-    left: 50%
-}
-
-.wbecs-slider .slick-prev:after {
-    transform: translate(-30%, -50%) rotate(45deg)
-}
-
-.wbecs-slider .slick-next:after {
-    transform: translate(-70%, -50%) rotate(-135deg)
+    display: none
 }
 
 .contact-wrap {

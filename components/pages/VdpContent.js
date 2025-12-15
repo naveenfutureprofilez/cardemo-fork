@@ -370,7 +370,7 @@ const Vdp = () => {
     return (
         <>
             <Header />
-            <section className='vdp-wrap !max-h-[300px] md:!max-h-[50vh] lg:!max-h-[70vh] '  style={{ backgroundImage: `url(${getImages('vdp-hero.webp')})` }}>
+            <section className='vdp-wrap'  style={{ backgroundImage: `url(${getImages('vdp-hero.webp')})` }}>
                 <Image src={getImages('vdp-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display:'none'}} />
             </section>
             <section className='vdp-hero-bottom cv-auto'>
@@ -383,14 +383,14 @@ const Vdp = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className='vdp-title1 !text-xl md:!text-3xl lg:!text-4xl'>{vehicleData.year} {vehicleData.make}</div>
-                                <div className='vdp-title2  !text-xl md:!text-3xl lg:!text-4xl mt-1'>{vehicleData.model}</div>
+                                <div className='vdp-title1'>{vehicleData.year} {vehicleData.make}</div>
+                                <div className='vdp-title2 mt-1'>{vehicleData.model}</div>
                             </div>
                         </div>
                         <div className='d-flex align-items-center vdpb-right'>
                             <div className='mr-84'>
                                 <div className=' vdp-label'>Price</div>
-                                <div className='!text-xl md:!text-3xl lg:!text-4xl vdp-price'>{priceFormatter(vehicleData.price, true)}</div>
+                                <div className='vdp-price'>{priceFormatter(vehicleData.price, true)}</div>
                             </div>
                             <div>
                                 <button type='button' className='black-btn get-started-btn w-220 lg-btn text-uppercase'>Inquire</button>
@@ -455,7 +455,7 @@ const Vdp = () => {
                     <div className='vdpa-block mt-xl-4 row'>
                         <div className='col-xl-4 order-xl-2 mb-3 mb-xl-0'>
                             <div className='vdpa-box p-4 h-100'>
-                                <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-uppercase fw-400 mb-3 wow fadeInUp' data-wow-delay="0.2s">Vehicle Info</div>
+                                <div className='lg-title text-uppercase fw-400 mb-3 wow fadeInUp' data-wow-delay="0.2s">Vehicle Info</div>
                                 <div className='vdpa-table'>
                                     <table className='w-100'>
                                         <tbody>
@@ -519,7 +519,7 @@ const Vdp = () => {
                         </div>
                         <div className='col-xl-8'>
                             <div className='vdpa-box vdpa-about-box'>
-                                <div className='xl-title !text-3xl md:!text-5xl lg:!text-7xlmb-4 wow fadeInUp text-start text-uppercase font-3em' data-wow-delay="0.6s">About this Vehicle</div>
+                                <div className='xl-title mb-4 wow fadeInUp text-start text-uppercase font-3em' data-wow-delay="0.6s">About this Vehicle</div>
                                 <div className='vdp-text'>
                                     <p>{displayText}
                                         {text.length > maxLength && (
@@ -538,7 +538,7 @@ const Vdp = () => {
                             </div>
                             <div className='vdpa-box vdpa-question-box'>
                                 <div id="gotAQuestion" ref={sectionRef} >
-                                    <div className='lg-title  !text-2xl md:!text-3xl lg:!text-5xl mb-90 wow fadeInUp' data-wow-delay="0.6s">Got a question? <a href="#" className='text-theme'>Call</a> or <a href="#" className='text-theme'>Chat</a> live with a sales representative</div>
+                                    <div className='lg-title mb-90 wow fadeInUp' data-wow-delay="0.6s">Got a question? <a href="#" className='text-theme'>Call</a> or <a href="#" className='text-theme'>Chat</a> live with a sales representative</div>
                                     <Formik
                                         // validationSchema={validationSchema}
                                         initialValues={{

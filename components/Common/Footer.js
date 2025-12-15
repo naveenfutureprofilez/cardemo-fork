@@ -20,7 +20,7 @@ const Footer = () => {
           </div>
 
           <div className="w-full md:w-auto  !mt-8 md:!mt-0">
-            <div className="sm-title font-16 mb-4 uppercase fw-500 text-center md:!text-left">
+            <div className="sm-title font-16 mb-4 uppercase fw-500 text-center md:text-left">
               Store Hours
             </div>
             <div className="flex items-center justify-between mb-3 max-w-xs mx-auto md:mx-0">

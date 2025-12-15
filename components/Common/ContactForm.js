@@ -1,8 +1,7 @@
 import { useContext, useRef } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import dynamic from 'next/dynamic';
-const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), { ssr: false });
+import ReCAPTCHA from 'react-google-recaptcha';
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 
@@ -16,38 +15,47 @@ export default function ContactForm() {
         email: Yup.string().email('Invalid email address').required('Email is required'),
         phone: Yup.string().required('Phone number is required'),
         comment: Yup.string().max(500, 'Comments cannot exceed 500 characters'),
-        g_recaptcha_response: Yup.string().required('Please complete reCAPTCHA')
+        subject: Yup.string()
     });
 
     return (
         <Formik
             initialValues={{ full_name: '', email: '', phone: '', comment: '', g_recaptcha_response: '', subject: 'Contact Us Form Submission' }}
             validationSchema={validationSchema}
-            onSubmit={async (values, { resetForm }) => {
+            onSubmit={async (values, { resetForm, setSubmitting, setStatus }) => {
                 try {
-                    const payload = {
-                        ...values,
-                        token: values.g_recaptcha_response,
-                        g_recaptcha_response: values.g_recaptcha_response
-                    };
+                    setStatus(null);
+                    const token = recaptchaRef.current && typeof recaptchaRef.current.executeAsync === 'function'
+                        ? await recaptchaRef.current.executeAsync()
+                        : (values.g_recaptcha_response || '');
+                    if (!token) {
+                        setStatus({ error: 'Please verify reCAPTCHA' });
+                        return;
+                    }
                     if (recaptchaRef.current && typeof recaptchaRef.current.reset === 'function') {
                         recaptchaRef.current.reset();
                     }
+                    const payload = {
+                        ...values,
+                        token: token || '',
+                        g_recaptcha_response: token || ''
+                    };
                     const data = await submitContactForm(payload);
                     if (data && data.success) {
                         resetForm();
                         router.push('/thank-you');
                     } else {
                         const msg = (data && (data.error || data.message)) ? (data.error || data.message) : 'There was a problem with your submission';
-                        alert(msg);
+                        setStatus({ error: msg });
                     }
                 } catch (error) {
-                    console.error('Form submission error:', error);
-                    alert('An error occurred. Please try again.');
+                    setStatus({ error: 'An error occurred. Please try again.' });
+                } finally {
+                    setSubmitting(false);
                 }
             }}
         >
-            {({ handleSubmit, values, setFieldValue }) => (
+            {({ handleSubmit, isSubmitting, status }) => (
                 <Form className="custom-form contact-form" autoComplete="off" name="contact-form" onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <div className='cs-label'>Full Name <span className='text-danger font-15'>*</span></div>
@@ -70,17 +78,24 @@ export default function ContactForm() {
                         <ErrorMessage name='comment' component='div' className='text-error text-danger' />
                     </div>
 
-                    <div className='mb-3 text-center'>
-                        <ReCAPTCHA
-                            ref={recaptchaRef}
-                            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                            onChange={(val) => setFieldValue('g_recaptcha_response', val || '')}
-                            onExpired={() => setFieldValue('g_recaptcha_response', '')}
-                        />
-                        <ErrorMessage name="g_recaptcha_response" component="div" className="text-error text-danger mt-2" />
-                    </div>
+                    <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                        size="invisible"
+                    />
 
-                    <button type='submit' className='black-btn w-240' disabled={!values.g_recaptcha_response}>Send Message</button>
+                    {status && status.error && (
+                        <div className='text-error text-danger mt-2' role='alert'>{status.error}</div>
+                    )}
+
+                    <button
+                        type='submit'
+                        className='black-btn get-started-btn border border-white p-3 w-100 text-uppercase d-inline-block'
+                        disabled={isSubmitting}
+                        aria-busy={isSubmitting ? 'true' : 'false'}
+                    >
+                        {isSubmitting ? 'Submitting...' : 'SUBMIT'}
+                    </button>
                 </Form>
             )}
         </Formik>

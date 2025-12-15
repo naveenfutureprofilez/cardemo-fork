@@ -1,8 +1,7 @@
 import { useContext, useRef } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import dynamic from 'next/dynamic';
-const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), { ssr: false });
+import ReCAPTCHA from 'react-google-recaptcha';
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 import { getImages } from '../Common/const';
@@ -20,8 +19,7 @@ const validationSchema = Yup.object().shape({
   year: Yup.string().required('Year is required'),
   make: Yup.string().required('Make is required'),
   model: Yup.string().required('Model is required'),
-  comments: Yup.string(),
-  g_recaptcha_response: Yup.string().required('Please complete reCAPTCHA')
+  comments: Yup.string()
 });
 
 const VehicleConsignmentInquiry = ({ close }) => {
@@ -37,13 +35,24 @@ const VehicleConsignmentInquiry = ({ close }) => {
         </button>
       </div>
       <div className="modal-body !p-6">
-        <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-center text-black fw-400 pt-3 pb-4">Vehicle Consignment Inquiry</div>
+        <div className="lg-title text-center text-black fw-400 pt-3 pb-4">Vehicle Consignment Inquiry</div>
         <div className="vci-box custom-form">
           <Formik
             initialValues={{ fullName: '', email: '', phone: '', year: '', make: '', model: '', comments: '', g_recaptcha_response: '' }}
             validationSchema={validationSchema}
-            onSubmit={async (values, { resetForm }) => {
+            onSubmit={async (values, { resetForm, setStatus, setSubmitting }) => {
               try {
+                setStatus(null);
+                const token = recaptchaRef.current && typeof recaptchaRef.current.executeAsync === 'function'
+                  ? await recaptchaRef.current.executeAsync()
+                  : '';
+                if (!token) {
+                  setStatus({ error: 'Please verify reCAPTCHA' });
+                  return;
+                }
+                if (recaptchaRef.current && typeof recaptchaRef.current.reset === 'function') {
+                  recaptchaRef.current.reset();
+                }
                 const [first_name, ...rest] = (values.fullName || '').trim().split(' ');
                 const last_name = rest.join(' ');
                 const payload = {
@@ -52,7 +61,7 @@ const VehicleConsignmentInquiry = ({ close }) => {
                   phone: values.phone,
                   email: values.email,
                   comments: values.comments,
-                  g_recaptcha_response: values.g_recaptcha_response,
+                  g_recaptcha_response: token,
                   vehicle: [values.year, values.make, values.model].filter(Boolean).join(' '),
                   subject: 'Vehicle Consignment Inquiry'
                 };
@@ -69,15 +78,17 @@ const VehicleConsignmentInquiry = ({ close }) => {
                   router.push('/thank-you');
                 } else {
                   const msg = (data && (data.error || data.message)) ? (data.error || data.message) : 'There was a problem with your submission';
-                  alert(msg);
+                  setStatus({ error: msg });
                 }
               } catch (err) {
                 console.error('VCI submit error', err);
-                alert('There was a problem with your submission');
+                setStatus({ error: 'There was a problem with your submission' });
+              } finally {
+                setSubmitting(false);
               }
             }}
           >
-            {({ values, setFieldValue }) => (
+            {({ values, setFieldValue, isSubmitting, status }) => (
               <Form className="row">
                 <div className="col-md-6">
                   <div className="form-group mb-3">
@@ -141,15 +152,17 @@ const VehicleConsignmentInquiry = ({ close }) => {
                   </div>
                 </div>
                 <div className="col-12 text-center mb-3">
+                  {status && status.error && (
+                    <div className="text-error text-danger mt-2" role="alert">{status.error}</div>
+                  )}
                   <ReCAPTCHA 
                     ref={recaptchaRef} 
-                    sitekey="6LfCa-srAAAAADUg9n4Myr1K_n2iOzduQAO6ZffA" 
-                    onChange={(val) => setFieldValue('g_recaptcha_response', val || '')}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} 
+                    size="invisible"
                   />
-                  <ErrorMessage name="g_recaptcha_response" component="div" className="text-error text-danger mt-2" />
                 </div>
                 <div className="col-12 text-center mt-3">
-                  <button type="submit" className="black-btn w-240" disabled={!values.g_recaptcha_response}>SEND</button>
+                  <button type="submit" className="black-btn w-240" disabled={isSubmitting} aria-busy={isSubmitting ? 'true' : 'false'}>SEND</button>
                 </div>
               </Form>
             )}

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { getImages } from '@/components/Common/const';
@@ -60,23 +59,24 @@ const reviewsList = [
 ];
 
 export default function WhyUs() {
-    const [reviewsReady, setReviewsReady] = useState(false);
-    const reviewsRef = useRef(null);
     const Slider = dynamic(() => import('react-slick'), { ssr: false });
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 4,
+        slidesToScroll: 1,
         arrows: true,
-        lazyLoad: 'ondemand',
+        autoplay: true,
+        autoplaySpeed: 3000,
+        adaptiveHeight: true,
         responsive: [
             {
-                breakpoint: 1200,
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 1,
+                    dots: false,
                 },
             },
             {
@@ -84,22 +84,11 @@ export default function WhyUs() {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
+                    dots: false,
                 },
             },
         ],
     };
-    useEffect(() => {
-        if (!reviewsRef.current) return;
-        const io = new IntersectionObserver((entries) => {
-            const entry = entries[0];
-            if (entry && entry.isIntersecting) {
-                setReviewsReady(true);
-                io.disconnect();
-            }
-        }, { rootMargin: '200px' });
-        io.observe(reviewsRef.current);
-        return () => io.disconnect();
-    }, []);
 
     return (
         <>
@@ -120,10 +109,10 @@ export default function WhyUs() {
             >
                 <Image src={getImages('about-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display: 'none'}} />
                 <div className="w-100">
-                    <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xl!text-3xl md:!text-5xl lg:!text-7xl text-uppercase text-center font-80 letter-spacing-3">
+                    <div className="xl-title text-uppercase text-center font-80 letter-spacing-3">
                         Why Choose Us
                     </div>
-                    <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl font-40 text-uppercase text-center fw-300 mt-3">
+                    <div className="lg-title font-40 text-uppercase text-center fw-300 mt-3">
                         We Know Luxury Automotive
                     </div>
                     <div className="text-center mt-5">
@@ -139,21 +128,21 @@ export default function WhyUs() {
                     <div className="d-md-flex align-items-center justify-content-between">
                         <div className="aiw-col">
                             <div className="d-inline-flex align-items-center">
-                                <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase pe-3 !text-3xl md:!text-5xl">+5k</div>
+                                <div className="xl-title text-uppercase pe-3">+5k</div>
                                 <div className="sm-title fw-500">Customers Served</div>
                             </div>
                         </div>
                         <div className="aiw-sep d-none d-md-block"></div>
                         <div className="aiw-col">
                             <div className="d-inline-flex align-items-center">
-                                <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase pe-3 !text-3xl md:!text-5xl">4.7</div>
+                                <div className="xl-title text-uppercase pe-3">4.7</div>
                                 <div className="sm-title fw-500">Google Rating</div>
                             </div>
                         </div>
                         <div className="aiw-sep d-none d-md-block"></div>
                         <div className="aiw-col">
                             <div className="d-inline-flex align-items-center">
-                                <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase pe-3 !text-3xl md:!text-5xl">193</div>
+                                <div className="xl-title text-uppercase pe-3">193</div>
                                 <div className="sm-title fw-500">Google Reviews</div>
                             </div>
                         </div>
@@ -168,7 +157,7 @@ export default function WhyUs() {
                     </div>
                     <div className="aw-right w-50">
                         <div className="mxw-560">
-                            <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-uppercase mb-lg-4 mb-3 !text-[23px] !text-4xl">We Know Luxury Automotive!</div>
+                            <div className="lg-title text-uppercase mb-lg-4 mb-3">We Know Luxury Automotive!</div>
                             <div className="common-text">
                                 <p>Alpha One Motors is redefining the luxury automotive experience. We now focus on acquiring the finest exotic and luxury vehicles directly from private owners, ensuring a seamless, trusted selling process. For buyers, we offer a highly curated, exclusive inventory — hand-selected to represent only the best in class. Fewer cars. Higher standards. A sharper focus on excellence.</p>
 
@@ -189,7 +178,7 @@ export default function WhyUs() {
                     </div>
                     <div className="aw-right w-50">
                         <div className="mxw-560">
-                            <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-uppercase mb-lg-4 mb-3 !text-[23px] !text-4xl">Ready to Sell Your Exotic Car?</div>
+                            <div className="lg-title text-uppercase mb-lg-4 mb-3">Ready to Sell Your Exotic Car?</div>
                             <div className="common-text">
                                 <p>Trust Alpha One Motors for Top Value. In today&apos;s luxury car market, savvy sellers know to check a vehicle&apos;s history with Carfax. So why settle for less than the best offer when trading in your exotic car? At Alpha One Motors, we specialize in high-end vehicles, ensuring you get the maximum value for your sale.</p>
 
@@ -204,52 +193,50 @@ export default function WhyUs() {
 
             <section className="customer-served-wrap cv-auto">
                 <div className="container">
-                    <div className="xl-title !text-3xl md:!text-5xl lg:!text-7xltext-uppercase mb-2">
+                    <div className="xl-title text-uppercase mb-2">
                         Don&apos;t Take our Word for it!
                     </div>
-                    <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl !text-xl md:!text-3xl fw-normal text-center font-40 mb-5 text-uppercase">
+                    <div className="lg-title fw-normal text-center font-40 mb-5 text-uppercase">
                         See what our Customers Have to Say!
                     </div>
-                    <div className="mt-70" ref={reviewsRef}>
-                        {reviewsReady && (
-                            <Slider {...settings} className="wbecs-slider">
-                                {reviewsList.map((review, index) => (
-                                    <div key={index}>
-                                        <div className="wbe-cs-box">
-                                            <div className="flex items-center justify-between mb-2">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
-                                                        {review.name?.charAt(0).toUpperCase()}
-                                                    </div>
-                                                    <div className="pl-3">
-                                                        <div className="xs-title font-bold text-black helvetica">{review.name}</div>
-                                                    </div>
+                    <div className="mt-70">
+                        <Slider {...settings} className="wbecs-slider">
+                            {reviewsList.map((review, index) => (
+                                <div key={index}>
+                                    <div className="wbe-cs-box">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <div className="flex items-center gap-2">
+                                                <div className="wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
+                                                    {review.name?.charAt(0).toUpperCase()}
                                                 </div>
-                                                <div className="g-icon">
-                                                    <Image src="/images/icon.svg" alt="Google" width={24} height={24} />
+                                                <div className="pl-3">
+                                                    <div className="xs-title font-bold text-black helveticaneue">{review.name}</div>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-1 wbe-cs-rating mb-2">
-                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                                <Image className="inline-block star-icon" src="/images/star.svg" alt="star" width={16} height={16} />
-                                                <Image className="inline-block verify-icon ml-2" src="/images/ti-verified.svg" alt="verified" width={16} height={16} />
-                                            </div>
-                                            <div className="mb-1 wbe-cs-content">
-                                                <p>{review.content}</p>
-                                            </div>
-                                            <div>
-                                                <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
-                                                    Read more
-                                                </a>
+                                            <div className="g-icon">
+                                                <img src={getImages('icon.svg')} alt="Google" />
                                             </div>
                                         </div>
+                                        <div className="flex gap-1 wbe-cs-rating mb-2">
+                                            <img className="inline-block star-icon" src={getImages('star.svg')} alt="star" />
+                                            <img className="inline-block star-icon" src={getImages('star.svg')} alt="star" />
+                                            <img className="inline-block star-icon" src={getImages('star.svg')} alt="star" />
+                                            <img className="inline-block star-icon" src={getImages('star.svg')} alt="star" />
+                                            <img className="inline-block star-icon" src={getImages('star.svg')} alt="star" />
+                                            <img className="inline-block verify-icon ml-2" src={getImages('ti-verified.svg')} alt="verified" />
+                                        </div>
+                                        <div className="mb-1 wbe-cs-content">
+                                            <p>{review.content}</p>
+                                        </div>
+                                        <div>
+                                            <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
+                                                Read more
+                                            </a>
+                                        </div>
                                     </div>
-                                ))}
-                            </Slider>
-                        )}
+                                </div>
+                            ))}
+                        </Slider>
                     </div>
                     <div className="text-center mt-75">
                         <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="black-btn get-started-btn font-bold uppercase w-330 inline-block lg-btn">

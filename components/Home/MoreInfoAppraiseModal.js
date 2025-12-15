@@ -1,8 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import dynamic from 'next/dynamic';
-const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), { ssr: false });
+import ReCAPTCHA from 'react-google-recaptcha';
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 import { getImages } from '../Common/const';
@@ -74,13 +73,13 @@ const MoreInfoAppraiseModal = ({ close, appraisalContactInfo, outerFormikRef }) 
   return (
     <div className="modal-content border-0 !rounded-lg top-[10vh] max-h-[80vh] overflow-auto">
       <div className="modal-header bg-black">
-        <h1 className="!sticky !top-0 bg-black modal-title filter-modal-title !text-lg !text-center w-full">Thank You</h1>
+        <h1 className="!sticky !top-0 bg-black modal-title filter-modal-title !text-center w-full">Thank You</h1>
         <button className="sm-box-close" type="button" onClick={close}>
           <img src={getImages('white-close.svg')} />
         </button>
       </div>
       <div className="modal-body  py-4 px-120">
-        <div className="lg-title  !text-2xl md:!text-3xl lg:!text-5xl text-center text-black fw-400 pt-3 pb-4">
+        <div className="lg-title text-center text-black fw-400 pt-3 pb-4">
           We need a little more info to appraise your vehicle
         </div>
         <div className="vci-box custom-form">
@@ -97,13 +96,27 @@ const MoreInfoAppraiseModal = ({ close, appraisalContactInfo, outerFormikRef }) 
             }}
             innerRef={formikRef}
             validationSchema={validationSchema}
-            onSubmit={async (values, { resetForm }) => {
+            onSubmit={async (values, { resetForm, setStatus, setSubmitting }) => {
               try {
-                values.token = values.g_recaptcha_response || '';
+                setStatus(null);
+                const token = recaptchaRef.current && typeof recaptchaRef.current.executeAsync === 'function'
+                  ? await recaptchaRef.current.executeAsync()
+                  : '';
+                if (!token) {
+                  setStatus({ error: 'Please verify reCAPTCHA' });
+                  return;
+                }
+                if (recaptchaRef.current && typeof recaptchaRef.current.reset === 'function') {
+                  recaptchaRef.current.reset();
+                }
+                values.token = token;
+                values.g_recaptcha_response = token;
                 await submitContactForm(values);
               } catch (err) {
                 console.error('MoreInfo submit error', err);
+                setStatus({ error: 'There was a problem with your submission' });
               } finally {
+                setSubmitting(false);
                 resetForm();
                 outerFormikRef?.current?.resetForm();
                 close();
@@ -111,7 +124,7 @@ const MoreInfoAppraiseModal = ({ close, appraisalContactInfo, outerFormikRef }) 
               }
             }}
           >
-            {({ values, setFieldValue }) => (
+            {({ values, setFieldValue, isSubmitting, status }) => (
               <Form className="row">
                 <FieldArray type="hidden" name="photos" value={values.photos} />
                 <div className="col-md-6">
@@ -185,15 +198,19 @@ const MoreInfoAppraiseModal = ({ close, appraisalContactInfo, outerFormikRef }) 
                   </div>
                 </div>
                 <div className="col-12 text-center mb-3">
+                  {status && status.error && (
+                    <div className="text-error text-danger mt-2" role="alert">{status.error}</div>
+                  )}
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                    onChange={(val) => setFieldValue('g_recaptcha_response', val || '')}
-                    onExpired={() => setFieldValue('g_recaptcha_response', '')}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                    size="invisible"
                   />
                 </div>
                 <div className="col-12 text-center mt-4">
-                  <button type="submit" className="black-btn w-240" disabled={!values.g_recaptcha_response}>Get Appraisal</button>
+                  <button type="submit" className="black-btn w-240" disabled={isSubmitting} aria-busy={isSubmitting ? 'true' : 'false'}>
+                    {isSubmitting ? 'Submitting...' : 'Get Appraisal'}
+                  </button>
                 </div>
               </Form>
             )}

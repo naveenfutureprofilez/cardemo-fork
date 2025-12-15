@@ -338,14 +338,16 @@ export const VehicleContextProvider = ({ children }) => {
     }
 
     const uploadDocument = async (values) => {
-        const { data } = await Axios.post('bridge/contact/s3_upload_file.php', values).catch(function (error) {
-            if (error.response) console.log(error.response.data, error.response.status, error.response.headers);
-            else if (error.request) console.log(error.request);
-            else console.log('Error', error.message);
-            console.log(error.config);
-        });
-
-        return data;
+        try {
+            const response = await Axios.post('bridge/contact/s3_upload_file.php', values);
+            return response?.data || {};
+        } catch (error) {
+            if (error && error.response && error.response.data) {
+                return error.response.data;
+            }
+            const message = error && error.message ? error.message : 'Upload failed';
+            return { error: message };
+        }
     }
 
     useEffect(() => {

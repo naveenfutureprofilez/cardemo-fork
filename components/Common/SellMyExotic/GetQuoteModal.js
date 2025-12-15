@@ -132,7 +132,7 @@ const GetQuoteModal = ({ close, selectedValue }) => {
                                 <div className="text-center mb-3">
                                     <ReCAPTCHA
                                         ref={recaptchaRef}
-                                        sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
                                         onChange={(val) => setFieldValue('g_recaptcha_response', val || '')}
                                         onExpired={() => setFieldValue('g_recaptcha_response', '')}
                                     />
