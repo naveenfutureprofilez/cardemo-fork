@@ -250,11 +250,13 @@ const EnterVehicleInfo = ({ setOpenMoreInfoModal, setAppraisalContactInfo, formi
                   </div>
                 </div>
               )}
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
-                size="invisible"
-              />
+              {loadRecaptcha && (
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                  size="invisible"
+                />
+              )}
             </Form>
           )}
         </Formik>

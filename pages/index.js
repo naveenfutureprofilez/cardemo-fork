@@ -96,7 +96,7 @@ export default function Home() {
             </div>
           </div>
           <div className='facility-col wow fadeIn' data-wow-delay="0.4s">
-            <Image src={getImages('facility-image2.jpg')} alt="Get Your Cash Offer" width={800} height={600} style={{ width: '100%', height: 'auto' }} />
+            <Image src={getImages('facility-image2.jpg')} alt="Get Your Cash Offer" width={800} height={600} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: 'auto' }} />
             <div className='facility-pos d-flex align-items-center'>
               <div className='w-100'>
                 <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4'>Get Your <br />Cash Offer</div>
@@ -109,7 +109,7 @@ export default function Home() {
             </div>
           </div>
           <div className='facility-col wow fadeIn' data-wow-delay="0.6s">
-            <Image src={getImages('facility-image3.jpg')} alt="Consignment Services" width={800} height={600} style={{ width: '100%', height: 'auto' }} />
+            <Image src={getImages('facility-image3.jpg')} alt="Consignment Services" width={800} height={600} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: 'auto' }} />
             <div className='facility-pos d-flex align-items-center'>
               <div className='w-100'>
                 <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4'>Consignment <br />Services</div>
