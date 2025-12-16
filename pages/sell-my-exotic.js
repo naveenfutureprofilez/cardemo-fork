@@ -11,11 +11,17 @@ import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 //import { Helmet } from 'react-helmet';
-import SellMyExoticReviews  from '../components/Common/SellMyExotic/SellMyExoticReviews';
-import MyVehicleForm from '../components/Common/SellMyExotic/MyVehicleForm';
-// const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { ssr: false });
 
-// const MyVehicleForm = React.lazy(() => import("../components/Common/SellMyExotic/MyVehicleForm"));
+const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { 
+    ssr: false,
+    loading: () => <div style={{ height: '500px' }}></div>
+});
+
+const MyVehicleForm = dynamic(() => import("../components/Common/SellMyExotic/MyVehicleForm"), {
+    ssr: false,
+    loading: () => <div style={{ minHeight: '280px' }}></div>
+});
+
 const GetQuoteModal = React.lazy(() => import("../components/Common/SellMyExotic/GetQuoteModal"));
 
 const SellMyExoticFaq = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticFaq'), { ssr: false });
@@ -163,7 +169,7 @@ const SellMyExotic = () => {
                             <div className='lg-title text-start font-2-2em roboto'>Sell or Trade your Vehicle</div>
                         </div>
                         <div className='sot-right'>
-                            <div ref={form2Ref}>
+                            <div ref={form2Ref} style={{ minHeight: '280px' }}>
                                 {form2Ready && (
                                     <MyVehicleForm
                                         setSelectedValue={setSelectedValue}
@@ -179,10 +185,10 @@ const SellMyExotic = () => {
             </section>
             </main>
             
-            <LazyLoadSection rootMargin="200px">
+            <LazyLoadSection rootMargin="200px" height="400px">
                 <SellMyExoticTips />
             </LazyLoadSection>
-            <LazyLoadSection rootMargin="200px">
+            <LazyLoadSection rootMargin="200px" height="500px">
                 <SellMyExoticFaq />
             </LazyLoadSection>
 
