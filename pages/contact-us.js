@@ -1,5 +1,4 @@
 import Header from '../components/Common/Header';
-import Footer from '../components/Common/Footer';
 import SeoMeta from '../components/Common/SeoMeta';
 import { getImages } from '../components/Common/const';
 import Image from 'next/image';
