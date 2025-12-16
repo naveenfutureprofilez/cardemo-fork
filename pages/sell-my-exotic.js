@@ -12,9 +12,10 @@ import Footer from '../components/Common/Footer';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 //import { Helmet } from 'react-helmet';
 import SellMyExoticReviews  from '../components/Common/SellMyExotic/SellMyExoticReviews';
+import MyVehicleForm from '../components/Common/SellMyExotic/MyVehicleForm';
 // const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { ssr: false });
 
-const MyVehicleForm = React.lazy(() => import("../components/Common/SellMyExotic/MyVehicleForm"));
+// const MyVehicleForm = React.lazy(() => import("../components/Common/SellMyExotic/MyVehicleForm"));
 const GetQuoteModal = React.lazy(() => import("../components/Common/SellMyExotic/GetQuoteModal"));
 
 const SellMyExoticFaq = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticFaq'), { ssr: false });
