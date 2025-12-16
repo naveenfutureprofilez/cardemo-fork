@@ -9,10 +9,16 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
     const [AlgoliaComponents, setAlgoliaComponents] = useState(null);
     const [searchClient, setSearchClient] = useState(null);
     const [isClient, setIsClient] = useState(false);
+    const loadingRef = useRef(false);
 
     useEffect(() => {
         setIsClient(true);
-        
+    }, []);
+
+    const loadAlgolia = () => {
+        if (loadingRef.current || AlgoliaComponents) return;
+        loadingRef.current = true;
+
         // Dynamically import Algolia modules
         Promise.all([
             import('algoliasearch/lite'),
@@ -26,8 +32,11 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                 useSearchBox: instantSearchModule.useSearchBox,
                 useHits: instantSearchModule.useHits
             });
+        }).catch(err => {
+            console.error("Failed to load Algolia", err);
+            loadingRef.current = false;
         });
-    }, []);
+    };
 
     const handleSearchClick = (hit) => {
         formikRef.current.setFieldValue("vehicle", hit.vehicle_name);
