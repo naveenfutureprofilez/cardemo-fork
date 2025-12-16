@@ -9,10 +9,11 @@ import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import dynamic from 'next/dynamic';
 import InventoryItem from '../Srp/InventoryItem';
-import ModalLayout from '../Common/ModalLayout';
-import SelectFilterModal from '../Srp/SelectFilterModal';
 import Header from '../Common/Header';
-import Footer from '../Common/Footer';
+
+const Footer = dynamic(() => import('../Common/Footer'), { ssr: false });
+const ModalLayout = dynamic(() => import('../Common/ModalLayout'), { ssr: false });
+const SelectFilterModal = dynamic(() => import('../Srp/SelectFilterModal'), { ssr: false });
 
 export default function Inventory() {
     const router = useRouter();
@@ -163,7 +164,11 @@ export default function Inventory() {
 
     const openVDP = (vdp_url) => {
         if (typeof window !== 'undefined') {
-            window.location.href = "/vdp";
+            let vin = vdp_url;
+            if (vdp_url.includes('-')) {
+                vin = vdp_url.split('-').pop();
+            }
+            router.push(`/vdp?vin=${vin}`);
         }
     }
 

@@ -4,15 +4,13 @@ import { getImages } from '../Common/const'
 import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import LazyLoadSection from '../Common/LazyLoadSection';
 
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
 const VdpContactForm = dynamic(() => import('./VdpContactForm'), { ssr: false });
 const VdpVehicleInfo = dynamic(() => import('./VdpVehicleInfo'), { ssr: false });
 const VdpAbout = dynamic(() => import('./VdpAbout'), { ssr: false });
+const Footer = dynamic(() => import('../Common/Footer'), { ssr: false });
 import Header from '../Common/Header';
-import Footer from '../Common/Footer';
 
 const Vdp = () => {
     const text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -20,15 +18,18 @@ const Vdp = () => {
     const { getVehicleData, vehiclesByVIN, vehicleVINsbyID, numberFormatter, priceFormatter, submitContactForm } = useContext(VehicleContext);
 
     const router = useRouter();
-    // console.log("location", location)
-    // console.log("vehiclesByVIN", vehiclesByVIN)
-    // console.log("vehicleVIN", vehicleVIN)
-    //console.log("vehicleVINsbyID", vehicleVINsbyID)
-    // useEffect(() => {
-    //     if (location && !vehicleVIN && vehiclesByVIN) {
-    //         let vin = location.pathname.slice(location.pathname.lastIndexOf("-") + 1, location.pathname.length);
-    //         if (vin in vehiclesByVIN) setVehicleVIN(vin);
-    //         else if (vin in vehicleVINsbyID) {
+    const { vin } = router.query;
+
+    useEffect(() => {
+        if (vin && !vehicleVIN) {
+             setVehicleVIN(vin);
+        } else if (!vehicleVIN && typeof window !== 'undefined') {
+             // Fallback for direct URL access or different structure if needed
+             const urlParams = new URLSearchParams(window.location.search);
+             const urlVin = urlParams.get('vin');
+             if (urlVin) setVehicleVIN(urlVin);
+        }
+    }, [vin, router.isReady]);
     //             console.log("found vehicle ID", vin, vehicleVINsbyID[vin], vehicleVINsbyID);
     //             setVehicleVIN(vehicleVINsbyID[vin]);
     //         } else navigate("/cars-for-sale-boerne-tx");
@@ -89,15 +90,6 @@ const Vdp = () => {
         }
     }, [vehicleVIN, vehiclesByVIN]);
 
-    var srpCarSlider = {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 2000,
-        arrows: true,
-        dots: true,
-    };
-
     // Mobile view condition
     const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
@@ -146,7 +138,7 @@ const Vdp = () => {
     return (
         <>
             <Header />
-            <section className='vdp-wrap' style={{ position: 'relative' }}>
+            <section className='vdp-wrap' style={{ position: 'relative', minHeight: '600px' }}>
                 <Image 
                     src={getImages('vdp-hero.webp')} 
                     alt="Hero" 
@@ -185,57 +177,61 @@ const Vdp = () => {
                     </div>
                 </div>
             </section>
-            <section className='vdp-gallery-wrap cv-auto'>
-                <div className='container'>
-                    <div className='row vdpg-block'>
-                        <div className='col-md-6 col-6'>
-                            <div className='vdpg-box'>
-                                <Image src={getImages('vdp-thumb1.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+            <LazyLoadSection height="400px">
+                <section className='vdp-gallery-wrap cv-auto'>
+                    <div className='container'>
+                        <div className='row vdpg-block'>
+                            <div className='col-md-6 col-6'>
+                                <div className='vdpg-box'>
+                                    <Image src={getImages('vdp-thumb1.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                </div>
                             </div>
-                        </div>
-                        <div className='col-md-6 col-6'>
-                            <div className='vdpg-box'>
-                                <Image src={getImages('vdp-thumb2.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                            <div className='col-md-6 col-6'>
+                                <div className='vdpg-box'>
+                                    <Image src={getImages('vdp-thumb2.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                </div>
                             </div>
-                        </div>
-                        <div className='col-md-4 col-6'>
-                            <div className='vdpg-box'>
-                                <Image src={getImages('vdp-thumb3.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                            <div className='col-md-4 col-6'>
+                                <div className='vdpg-box'>
+                                    <Image src={getImages('vdp-thumb3.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                </div>
                             </div>
-                        </div>
-                        <div className='col-md-4 col-6'>
-                            <div className='vdpg-box'>
-                                <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                            <div className='col-md-4 col-6'>
+                                <div className='vdpg-box'>
+                                    <Image src={getImages('vdp-thumb4.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div className='col-md-4 col-6'>
-                            <div className='vdpg-box position-relative'>
-                                <Image src={getImages('vdp-thumb5.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
-                                <div className='vdpg-count'>+15</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className='vdp-content-wrap cv-auto'>
-                <div className='container'>
-                    <div className='vdpa-block mt-xl-4 row'>
-                        <div className='col-xl-4 order-xl-2 mb-3 mb-xl-0'>
-                            <VdpVehicleInfo vehicleData={vehicleData} numberFormatter={numberFormatter} />
-                        </div>
-                        <div className='col-xl-8'>
-                            <VdpAbout text={text} />
-                            <div className='vdpa-box vdpa-question-box'>
-                                <div id="gotAQuestion" ref={sectionRef} >
-                                    <div className='lg-title mb-90 wow fadeInUp' data-wow-delay="0.6s">Got a question? <a href="#" className='text-theme'>Call</a> or <a href="#" className='text-theme'>Chat</a> live with a sales representative</div>
-                                    <VdpContactForm vehicleData={vehicleData} submitContactForm={submitContactForm} />
+                            
+                            <div className='col-md-4 col-6'>
+                                <div className='vdpg-box position-relative'>
+                                    <Image src={getImages('vdp-thumb5.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                    <div className='vdpg-count'>+15</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </LazyLoadSection>
+            <LazyLoadSection height="800px">
+                <section className='vdp-content-wrap cv-auto'>
+                    <div className='container'>
+                        <div className='vdpa-block mt-xl-4 row'>
+                            <div className='col-xl-4 order-xl-2 mb-3 mb-xl-0'>
+                                <VdpVehicleInfo vehicleData={vehicleData} numberFormatter={numberFormatter} />
+                            </div>
+                            <div className='col-xl-8'>
+                                <VdpAbout text={text} />
+                                <div className='vdpa-box vdpa-question-box'>
+                                    <div id="gotAQuestion" ref={sectionRef} >
+                                        <div className='lg-title mb-90 wow fadeInUp' data-wow-delay="0.6s">Got a question? <a href="#" className='text-theme'>Call</a> or <a href="#" className='text-theme'>Chat</a> live with a sales representative</div>
+                                        <VdpContactForm vehicleData={vehicleData} submitContactForm={submitContactForm} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </LazyLoadSection>
             <Footer />
         </>
     )
