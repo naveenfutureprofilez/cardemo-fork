@@ -6,7 +6,6 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 const AboutContent = dynamic(() => import('../components/Common/AboutUs/AboutContent'), { ssr: false });
-
 export default function AboutUs() {
     return (
         <>
