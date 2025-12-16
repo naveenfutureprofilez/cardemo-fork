@@ -170,25 +170,21 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                                         onChange={(e) => formikRef.current?.setFieldValue("vehicle", e.target.value)}
                                     />
                                 )}
-                                <div>
                                     <button
                                         className="sme-btn uppercase get-started-btn uppercase px-3 whitespace-nowrap"
                                         type="submit"
                                     >
                                         GET My Value
                                     </button>
-                                </div>
                             </div>
                         )}
                         <ValidationError name="vehicle" formik={{ touched: {}, errors: {} }} />
                     </div>
 
                     {!sotForm && (
-                        <div>
-                            <button className="sme-btn uppercase get-started-btn w-full uppercase" type="submit">
+                            <button className="w-full sme-btn !uppercase get-started-btn w-full uppercase" type="submit">
                                 GET My Value
                             </button>
-                        </div>
                     )}
                 </Form>
             )}

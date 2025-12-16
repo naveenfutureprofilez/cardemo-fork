@@ -19,7 +19,7 @@ const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExo
 
 const MyVehicleForm = dynamic(() => import("../components/Common/SellMyExotic/MyVehicleForm"), {
     ssr: false,
-    loading: () => <div style={{ minHeight: '280px' }}></div>
+    loading: () => <div ></div>
 });
 
 const GetQuoteModal = React.lazy(() => import("../components/Common/SellMyExotic/GetQuoteModal"));
@@ -163,13 +163,13 @@ const SellMyExotic = () => {
                 <div className='container'>
                     <div className='d-lg-flex justify-content-between sot-flex'>
                         <div className='sot-left'>
-                            <div className='mb-3'>
+                            <div className='flex lg:block   justify-center mb-3'>
                                 <Image src={getImages('tg-logo-bw.png')} alt='Trade Group' width={120} height={36} />
                             </div>
-                            <div className='lg-title text-start font-2-2em roboto'>Sell or Trade your Vehicle</div>
+                            <div className='lg-title !text-center xl:!text-start  font-2-2em roboto'>Sell or Trade your Vehicle</div>
                         </div>
                         <div className='sot-right'>
-                            <div ref={form2Ref} style={{ minHeight: '280px' }}>
+                            <div ref={form2Ref}  >
                                 {form2Ready && (
                                     <MyVehicleForm
                                         setSelectedValue={setSelectedValue}
