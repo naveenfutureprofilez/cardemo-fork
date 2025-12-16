@@ -9,12 +9,14 @@ import { VehicleContext } from '../context/VehicleContext';
 import SeoMeta from '../components/Common/SeoMeta';
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
+import LazyLoadSection from '@/components/Common/LazyLoadSection';
 //import { Helmet } from 'react-helmet';
+import SellMyExoticReviews  from '../components/Common/SellMyExotic/SellMyExoticReviews';
+// const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { ssr: false });
 
 const MyVehicleForm = React.lazy(() => import("../components/Common/SellMyExotic/MyVehicleForm"));
 const GetQuoteModal = React.lazy(() => import("../components/Common/SellMyExotic/GetQuoteModal"));
 
-const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { ssr: false });
 const SellMyExoticFaq = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticFaq'), { ssr: false });
 const SellMyExoticTips = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticTips'), { ssr: false });
 
@@ -83,11 +85,19 @@ const SellMyExotic = () => {
             />
             <section className='common-banner-wrap d-flex align-items-center'
                 style={{
-                    backgroundImage: `url(${getImages('sell-exotic-hero.webp')})`
+                    position: 'relative',
+                    overflow: 'hidden'
                 }}
             >
-                <Image src={getImages('sell-exotic-hero.webp')} alt="" width={1600} height={900} sizes="100vw" priority style={{display: 'none'}} />
-                <div className='w-100'>
+                <Image 
+                    src={getImages('sell-exotic-hero.webp')} 
+                    alt="Sell Your Exotic Car" 
+                    fill 
+                    priority 
+                    sizes="100vw"
+                    style={{objectFit: 'cover', zIndex: -1}} 
+                />
+                <div className='w-100' style={{ zIndex: 1 }}>
                     <div className='xl-title text-uppercase text-center font-80 letter-spacing-3'>SAME DAY OFFERS</div>
                     <div className='lg-title font-40 text-uppercase text-center fw-300 mt-3'>Enjoy our stress-free process</div>
                 </div>
@@ -139,8 +149,11 @@ const SellMyExotic = () => {
                 </div>
             </section>
             
-            <SellMyExoticReviews />
+            {/* <LazyLoadSection rootMargin="200px" height="500px"> */}
+                <SellMyExoticReviews />
+            {/* </LazyLoadSection> */}
 
+            <LazyLoadSection rootMargin="200px" height="600px">
             <section className='sell-or-trade-wrap'>
                 <div className='container'>
                     <div className='d-lg-flex justify-content-between sot-flex'>
@@ -165,10 +178,15 @@ const SellMyExotic = () => {
                     </div>
                 </div>
             </section>
+            </LazyLoadSection>
             </main>
             
-            <SellMyExoticTips />
-            <SellMyExoticFaq />
+            <LazyLoadSection rootMargin="200px">
+                <SellMyExoticTips />
+            </LazyLoadSection>
+            <LazyLoadSection rootMargin="200px">
+                <SellMyExoticFaq />
+            </LazyLoadSection>
 
             <ModalLayout open={getQuoteModal} close={closeGetQuoteModal} darkThemeCls='true' cls="dark-bg-modal" modalWidth={750}>
                 <Suspense
