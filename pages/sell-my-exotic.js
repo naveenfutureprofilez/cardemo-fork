@@ -107,7 +107,7 @@ const SellMyExotic = () => {
                 <div className='container'>
                 <div className='hassle-process-box d-md-flex cv-auto'>
                     <div className='hpb-right w-50 order-2'>
-                            <div className='fading xl-title text-uppercase mb-md-5 mb-4 text-center'>NO HASSLE <br />PROCESS</div>
+                            <div className=' xl-title text-uppercase mb-md-5 mb-4 text-center'>NO HASSLE <br />PROCESS</div>
                         <div ref={formRef}>
                             {formReady && (
                                 <MyVehicleForm
@@ -117,8 +117,8 @@ const SellMyExotic = () => {
                                     />
                                 )}
                             </div>
-                            <div className='fading sm-title text-center roboto mt-100 fw-500 text-white'>Simple, Fast & Free</div>
-                            <div className='fading text-center pt-3'>
+                            <div className=' sm-title text-center roboto mt-100 fw-500 text-white'>Simple, Fast & Free</div>
+                            <div className=' text-center pt-3'>
                                     <span className='px-5 d-inline-block hpb-border-t pt-3'>
                                         <Image src={getImages('tg-logo-bw.png')} alt='Trade Group' width={120} height={36} />
                                     </span>
