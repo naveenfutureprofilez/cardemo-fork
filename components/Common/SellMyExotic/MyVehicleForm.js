@@ -149,6 +149,7 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                                     name="vehicle"
                                     className="form-control"
                                     placeholder="Year Make Model Trim or VIN"
+                                    onFocus={loadAlgolia}
                                     onChange={(e) => formikRef.current?.setFieldValue("vehicle", e.target.value)}
                                 />
                             )
@@ -167,6 +168,7 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                                         name="vehicle"
                                         className="form-control"
                                         placeholder="Year Make Model Trim or VIN"
+                                        onFocus={loadAlgolia}
                                         onChange={(e) => formikRef.current?.setFieldValue("vehicle", e.target.value)}
                                     />
                                 )}

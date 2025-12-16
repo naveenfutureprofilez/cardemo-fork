@@ -89,7 +89,7 @@ const SellMyExoticReviews = () => {
                             <div className="review-item" key={index}>
                                 <div className="review-box">
                                     <span className='google-icon'>
-                                        <img src={getImages('google-logo.png')} alt='google' />
+                                        <Image src={getImages('google-logo.png')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
                                     </span>
                                     <div className="review-mnh">
                                         <p className="clamp-4">
@@ -100,7 +100,7 @@ const SellMyExoticReviews = () => {
                                         <div className='cv-auto'>
                                             <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
                                                 {[...Array(5)].map((_, i) => (
-                                                    <img key={i} className="me-1" src={getImages("star.svg")} alt="star" />
+                                                    <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
                                                 ))}
                                             </div>
                                             <div className="reviewer-name">{review.name}</div>

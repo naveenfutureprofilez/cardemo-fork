@@ -169,7 +169,7 @@ const SellMyExotic = () => {
                             <div className='lg-title !text-center xl:!text-start  font-2-2em roboto'>Sell or Trade your Vehicle</div>
                         </div>
                         <div className='sot-right'>
-                            <div ref={form2Ref}  >
+                            <div ref={form2Ref} style={{ minHeight: '280px' }}>
                                 {form2Ready && (
                                     <MyVehicleForm
                                         setSelectedValue={setSelectedValue}
