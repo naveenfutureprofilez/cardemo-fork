@@ -28,6 +28,7 @@ export default function AboutUs() {
                     alt="About Us" 
                     fill 
                     priority 
+                    quality={60}
                     sizes="100vw"
                     style={{objectFit: 'cover', zIndex: -1}} 
                 />
@@ -35,9 +36,9 @@ export default function AboutUs() {
                     <div className="xl-title text-uppercase text-center font-80 letter-spacing-3">
                         About Us
                     </div>
-                    <h2 className="lg-title font-40 text-uppercase text-center fw-300 mt-3 wow fadeIn" duration="1s" delay="0.2s">
+                    <div className="lg-title font-40 text-uppercase text-center fw-300 mt-3">
                         Passion for Exotic Cars
-                    </h2>
+                    </div>
                 </div>
             </section>
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { getImages } from '../const';
-import WowElement from '../WowElement';
 
 const AboutContent = () => {
     return (
