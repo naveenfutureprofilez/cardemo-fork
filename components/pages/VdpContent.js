@@ -382,6 +382,9 @@ const Vdp = () => {
                                     <Image src={getImages(`logos/${vehicleData.make}.png`)} alt={`${vehicleData.make} logo`} width={64} height={64} />
                                 </div>
                             </div>
+
+
+                            
                             <div>
                                 <div className='vdp-title1'>{vehicleData.year} {vehicleData.make}</div>
                                 <div className='vdp-title2 mt-1'>{vehicleData.model}</div>
