@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useRef, useState, Suspense } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImages } from '../components/Common/const'
 import ModalLayout from '../components/Common/ModalLayout'
-import { VehicleContext } from '../context/VehicleContext';
 import SeoMeta from '../components/Common/SeoMeta';
 import Header from '../components/Common/Header';
 // import Footer from '../components/Common/Footer';
@@ -28,7 +27,6 @@ const SellMyExoticTips = dynamic(() => import('../components/Common/SellMyExotic
 
 const SellMyExotic = () => {
 
-    const { getVehicleData, numberFormatter, filteredVehicleData } = useContext(VehicleContext);
     const [selectedValue, setSelectedValue] = useState("");
     const [getQuoteModal, setGetQuoteModal] = useState(false);
     const closeGetQuoteModal = () => {
@@ -49,10 +47,6 @@ const SellMyExotic = () => {
         setopenDragDropModal(false)
     }
     const [files, setFiles] = useState([]);
-
-    useEffect(() => {
-        getVehicleData();
-    }, []);
 
     useEffect(() => {
         const makeObserver = (ref, setter) => {
@@ -93,7 +87,10 @@ const SellMyExotic = () => {
                         src={getImages('sell-exotic-hero.webp')} 
                         alt="Sell Your Exotic Car" 
                         fill 
-                        priority  className=''
+                        priority
+                        quality={60}
+                        fetchPriority="high"
+                        className=''
                         sizes="100vw"
                         style={{objectFit: 'cover', zIndex: -1}} 
                     />
