@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { getImages } from '../Common/const';
-
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = false }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [errorImages, setErrorImages] = useState({});
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -16,25 +13,27 @@ const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = f
 
     const handleMouseLeave = () => {
         setIsHovered(false);
+        setCurrentSlide(0); // Reset to first image on leave
     };
 
-    const srpCarSlider = {
-        infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 2000,
-        arrows: true,
-        dots: false,
-        pauseOnHover: false,
+    const nextSlide = (e) => {
+        e.stopPropagation();
+        setCurrentSlide((prev) => (prev + 1) % Math.min(item.images.length, 3));
     };
 
-    const shouldShowSlider = item.images.length > 0 && isHovered;
+    const prevSlide = (e) => {
+        e.stopPropagation();
+        setCurrentSlide((prev) => (prev - 1 + Math.min(item.images.length, 3)) % Math.min(item.images.length, 3));
+    };
+
+    const handleImageError = () => {
+        setErrorImages(prev => ({ ...prev, [currentSlide]: true }));
+    };
     
-    const handleImageError = (e) => {
-        e.target.src = getImages("unavailable_stockphoto.avif");
-        e.target.onerror = null;
-    };
+    // Determine which image to show
+    const displayImage = errorImages[currentSlide] 
+        ? getImages("unavailable_stockphoto.avif")
+        : (item.images && item.images.length > 0 ? item.images[currentSlide] : null);
 
     return (
         <div className='srp-box'
@@ -43,49 +42,70 @@ const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = f
         >
             <div className='srp-top'>
                 {item.images.length > 0 ? (
-                    <>
-                        {(shouldShowSlider) ? (
-                            <Slider className='srp-slider' {...srpCarSlider}>
-                                {item.images.map((photo, j) => {
-                                    if (j > 2) return null; // Limit to 3 images
-                                    return (
-                                        <div onClick={() => openVDP(item.vdp_url ?? "used-" + item.vin)} key={"vdp" + j}>
-                                            <div className='inner' style={{ aspectRatio: '800/533', position: 'relative', overflow: 'hidden' }}>
-                                                <Image
-                                                    src={photo}
-                                                    alt={`${item.year} ${item.make} ${item.model}`}
-                                                    width={800}
-                                                    height={533}
-                                                    sizes="(max-width: 576px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                    priority={false} // Lazy load
-                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                                    unoptimized={true}
-                                                    onError={handleImageError}
-                                                />
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </Slider>
-                        ) : (
-                            <div onClick={() => openVDP(item.vdp_url ?? "used-" + item.vin)} style={{ cursor: 'pointer' }}>
-                                <div className='inner' style={{ aspectRatio: '800/533', position: 'relative', overflow: 'hidden' }}>
-                                    <Image
-                                        src={item.images[0]}
-                                        alt={`${item.year} ${item.make} ${item.model}`}
-                                        width={800}
-                                        height={533}
-                                        sizes="(max-width: 576px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                        priority={priority}
-                                        unoptimized={true}
-                                        onError={handleImageError}
-                                        fetchPriority={priority ? "high" : "auto"}
-                                    />
-                                </div>
-                            </div>
+                    <div className="position-relative" onClick={() => openVDP(item.vdp_url ?? "used-" + item.vin)} style={{ cursor: 'pointer' }}>
+                        <div className='inner' style={{ aspectRatio: '800/533', position: 'relative', overflow: 'hidden' }}>
+                            <Image
+                                src={displayImage}
+                                alt={`${item.year} ${item.make} ${item.model}`}
+                                width={800}
+                                height={533}
+                                sizes="(max-width: 576px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                priority={priority && currentSlide === 0}
+                                unoptimized={true}
+                                onError={handleImageError}
+                                fetchPriority={priority && currentSlide === 0 ? "high" : "auto"}
+                            />
+                        </div>
+                        
+                        {/* Navigation Arrows */}
+                        {isHovered && item.images.length > 1 && (
+                            <>
+                                <button 
+                                    className="slick-prev slick-arrow" 
+                                    style={{ 
+                                        display: 'block', 
+                                        left: '10px', 
+                                        zIndex: 10,
+                                        position: 'absolute',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        width: '30px',
+                                        height: '30px',
+                                        background: `url(${getImages('mob-review-prev.svg')}) center center / contain no-repeat`,
+                                        border: 'none',
+                                        fontSize: 0,
+                                        cursor: 'pointer'
+                                    }}
+                                    onClick={prevSlide}
+                                    aria-label="Previous"
+                                    type="button"
+                                >
+                                </button>
+                                <button 
+                                    className="slick-next slick-arrow" 
+                                    style={{ 
+                                        display: 'block', 
+                                        right: '10px', 
+                                        zIndex: 10,
+                                        position: 'absolute',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        width: '30px',
+                                        height: '30px',
+                                        background: `url(${getImages('mob-review-next.svg')}) center center / contain no-repeat`,
+                                        border: 'none',
+                                        fontSize: 0,
+                                        cursor: 'pointer'
+                                    }}
+                                    onClick={nextSlide}
+                                    aria-label="Next"
+                                    type="button"
+                                >
+                                </button>
+                            </>
                         )}
-                    </>
+                    </div>
                 ) : (
                     <div style={{ cursor: 'pointer' }} onClick={() => openVDP(item.vdp_url ?? "used-" + item.vin)}>
                         <div className='inner' style={{ aspectRatio: '800/533', position: 'relative', overflow: 'hidden' }}>

@@ -1,8 +1,8 @@
 import InventoryContent from '../components/pages/InventoryContent';
 import { processVehicleData } from '../utils/vehicleProcessing';
 
-export default function Inventory() {
-  return <InventoryContent />;
+export default function Inventory({ initialData }) {
+  return <InventoryContent initialData={initialData} />;
 }
 
 export async function getServerSideProps() {

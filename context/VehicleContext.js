@@ -271,10 +271,26 @@ export const VehicleContextProvider = ({ children, initialData }) => {
         }
     }, [searchText, currentFilterData, priceFilterData]);
 
+    const hydrateData = (data) => {
+        if (!data) return;
+        setFeaturedVehicles(data.featuredVehicles);
+        setVehicleData(data.vehicleData);
+        setFilteredVehicleData(data.vehicleData);
+        setVehiclesByVIN(data.vehiclesByVIN);
+        setVehicleVINsbyID(data.vehicleVINsbyID);
+        setCurrentFilterData(data.currentFilterData);
+        setVehicleYears(data.vehicleYears);
+        setVehicleMakes(data.vehicleMakes);
+        setVehicleModels(data.vehicleModels);
+        setVehicleTrims(data.vehicleTrims);
+        setVehicleBodyStyles(data.vehicleBodyStyles);
+    };
+
     return (
         <VehicleContext.Provider value={{ 
             vehicleData, 
             getVehicleData, 
+            hydrateData,
             featuredVehicles, 
             numberFormatter, 
             priceFormatter, 

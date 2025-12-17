@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import SrpLeft from '../Srp/SrpLeft';
@@ -15,9 +15,9 @@ const Footer = dynamic(() => import('../Common/Footer'), { ssr: false });
 const ModalLayout = dynamic(() => import('../Common/ModalLayout'), { ssr: false });
 const SelectFilterModal = dynamic(() => import('../Srp/SelectFilterModal'), { ssr: false });
 
-export default function Inventory() {
+export default function Inventory({ initialData }) {
     const router = useRouter();
-    const { getVehicleData, vehicleData, filteredVehicleData, searchText, setSearchText, numberFormatter, priceFormatter, currentFilterData, setCurrentFilterData, activeFilter, setActiveFilter, priceFilterData, setPriceFilterData, } = useContext(VehicleContext);
+    const { getVehicleData, hydrateData, vehicleData, filteredVehicleData, searchText, setSearchText, numberFormatter, priceFormatter, currentFilterData, setCurrentFilterData, activeFilter, setActiveFilter, priceFilterData, setPriceFilterData, } = useContext(VehicleContext);
     
     const [isSticky, setIsSticky] = useState(false);
     //const [srpFilter, setSrpFilter] = useState(false);
@@ -25,7 +25,8 @@ export default function Inventory() {
     const [isDataLoaded, setIsDataLoaded] = useState(true);
     const [isOpacity, setIsOpacity] = useState(true);
     const [value, setValue] = useState([priceFilterData.min, priceFilterData.max]);
-    
+    const [visibleCount, setVisibleCount] = useState(12);
+
     // Preload first image for LCP
     const firstVehicleImage = filteredVehicleData && filteredVehicleData.length > 0 && filteredVehicleData[0].images && filteredVehicleData[0].images.length > 0 ? filteredVehicleData[0].images[0] : null;
 
@@ -50,9 +51,6 @@ export default function Inventory() {
         setPriceFilterData({ ...priceFilterData, ['current_min']: newValue[0], ['current_max']: newValue[1] });
     };
 
-    // const handleMileageSliderChange = (newValue) => {
-    //     setMileageFilterData({ ...mileageFilterData, ['current_min']: newValue[0], ['current_max']: newValue[1] });
-    // };
     const [mobFilter, setMobFilter] = useState(false);
     const handleFilterBtn = () => {
         setMobFilter(!mobFilter)
@@ -60,17 +58,6 @@ export default function Inventory() {
     const handleCloseFilter = () => {
         setMobFilter(false)
     }
-    var srpCarSlider = {
-        infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 2000,
-        arrows: true,
-        dots: false,
-        pauseOnHover: false,
-    };
-
 
     useEffect(() => {
         if (filteredVehicleData) {
@@ -79,12 +66,14 @@ export default function Inventory() {
                 setIsOpacity(false);
             }, 100);
         }
-        //console.log("filtered vehicle data", filteredVehicleData);
-        //console.log("current filters",currentFilterData);
     }, [filteredVehicleData]);
 
     useEffect(() => {
-        getVehicleData();
+        if (initialData) {
+            hydrateData(initialData);
+        } else if (!vehicleData) {
+            getVehicleData();
+        }
 
         if (typeof window !== 'undefined') {
             const handleScroll = () => {
@@ -237,6 +226,25 @@ export default function Inventory() {
 
         //console.log(sort_val,sort_val.includes("_low") ? -1 : 1)
     };
+
+    // Reset visible count when filters change
+    useEffect(() => {
+        setVisibleCount(12);
+    }, [filteredVehicleData]);
+
+    const sortedVehicles = useMemo(() => {
+        if (!filteredVehicleData) return [];
+        return [...filteredVehicleData].sort((a, b) => (b[sortColumn] - a[sortColumn]) * sortOrder);
+    }, [filteredVehicleData, sortColumn, sortOrder]);
+
+    const displayedVehicles = useMemo(() => {
+        return sortedVehicles.slice(0, visibleCount);
+    }, [sortedVehicles, visibleCount]);
+
+    const handleLoadMore = () => {
+        setVisibleCount(prev => prev + 12);
+    };
+
     const totalFilterCount =
         ((priceFilterData.current_min > priceFilterData.min || priceFilterData.current_max < priceFilterData.max) ? 1 : 0) +
         // ((mileageFilterData.current_min > mileageFilterData.min || mileageFilterData.current_max < mileageFilterData.max) ? 1 : 0) +
@@ -350,8 +358,8 @@ export default function Inventory() {
 
                             <div className='row g-4 mt-md-2'>
                                 {/* {console.log("filteredVehicleData", filteredVehicleData)} */}
-                                        {filteredVehicleData &&
-                                    filteredVehicleData.sort((a, b) => (b[sortColumn] - a[sortColumn]) * sortOrder).map((item, index) => (
+                                        {displayedVehicles &&
+                                    displayedVehicles.map((item, index) => (
                                         <div className='col-xl-4 col-sm-6 col-12' key={index}>
                                             <InventoryItem 
                                                 item={item} 
@@ -364,6 +372,17 @@ export default function Inventory() {
                                     ))
                                 }
                             </div>
+                            {sortedVehicles.length > visibleCount && (
+                                <div className="text-center mt-5">
+                                    <button 
+                                        className="btn btn-primary px-5 py-2"
+                                        onClick={handleLoadMore}
+                                        style={{ backgroundColor: '#000', borderColor: '#000', borderRadius: '0' }}
+                                    >
+                                        LOAD MORE
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
