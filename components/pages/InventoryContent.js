@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import SrpLeft from '../Srp/SrpLeft';
-import Image from 'next/image';
 import { VehicleContext } from '../../context/VehicleContext';
 import SearchComponent from '../Srp/SearchComponent';
 import { getImages } from '../Common/const';
