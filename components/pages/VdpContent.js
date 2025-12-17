@@ -103,6 +103,14 @@ const Vdp = () => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+    useEffect(() => {
+        if (!vehicleVIN && vehiclesByVIN) {
+            const vins = Object.keys(vehiclesByVIN);
+            if (vins.length > 0) {
+                setVehicleVIN(vins[0]);
+            }
+        }
+    }, [vehiclesByVIN, vehicleVIN]);
     const [showAll, setShowAll] = useState(false);
     const visibleItems = showAll ? vehicleData?.descriptions : vehicleData?.descriptions?.slice(0, 6);
     const galleryRef = useRef(null);
@@ -122,6 +130,13 @@ const Vdp = () => {
     };
     const [monthlyPayment, setMonthlyPayment] = useState('--');
     // console.log("vehicleData", vehicleData)
+    const [brandLogoSrc, setBrandLogoSrc] = useState(null);
+    useEffect(() => {
+        if (vehicleData?.make) {
+            const normalized = vehicleData.make.trim().replace(/\s+/g, '-');
+            setBrandLogoSrc(getImages(`logos/${normalized}.png`));
+        }
+    }, [vehicleData?.make]);
     
     if (!vehicleData?.make) {
         return (
@@ -148,16 +163,21 @@ const Vdp = () => {
                     sizes="100vw"
                 />
             </section>
-            <section className='vdp-hero-bottom cv-auto'>
+            <section className='vdp-hero-bottom'>
                 <div className='container'>
-                    <div className='d-lg-flex align-items-center justify-content-between'>
+                    <div className='bg-black d-lg-flex align-items-center justify-content-between'>
                         <div className='d-flex align-items-center vdpb-left'>
                             <div>
                                 <div className='brand-logo'>
-                                    <Image src={getImages(`logos/${vehicleData.make}.png`)} alt={`${vehicleData.make} logo`} width={64} height={64} />
+                                    <Image 
+                                        src={brandLogoSrc || getImages('alpha-one-logo.webp')} 
+                                        alt={`${vehicleData.make} logo`} 
+                                        width={64} 
+                                        height={64} 
+                                        onError={() => setBrandLogoSrc(getImages('alpha-one-logo.webp'))}
+                                    />
                                 </div>
                             </div>
-
 
                             
                             <div>
@@ -165,8 +185,8 @@ const Vdp = () => {
                                 <div className='vdp-title2 mt-1'>{vehicleData.model}</div>
                             </div>
                         </div>
-                        <div className='d-flex align-items-center justify-content-between !pb-4 vdpb-right'>
-                            <div className='lg:!me-[100px]'>
+                        <div className='d-flex  align-items-center vdpb-right !pb-6'>
+                            <div className='!mr-[100px] lg:!mr-[30px] '>
                                 <div className=' vdp-label'>Price</div>
                                 <div className='vdp-price'>{priceFormatter(vehicleData.price, true)}</div>
                             </div>
@@ -178,7 +198,7 @@ const Vdp = () => {
                 </div>
             </section>
             <LazyLoadSection height="400px">
-                <section className='vdp-gallery-wrap cv-auto'>
+                <section className='vdp-gallery-wrap'>
                     <div className='container'>
                         <div className='row vdpg-block'>
                             <div className='col-md-6 col-6'>
@@ -213,7 +233,7 @@ const Vdp = () => {
                 </section>
             </LazyLoadSection>
             <LazyLoadSection height="800px">
-                <section className='vdp-content-wrap cv-auto'>
+                <section className='vdp-content-wrap'>
                     <div className='container'>
                         <div className='vdpa-block mt-xl-4 row'>
                             <div className='col-xl-4 order-xl-2 mb-3 mb-xl-0'>
