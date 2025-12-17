@@ -89,20 +89,17 @@ const SellMyExotic = () => {
                 ogTitle="Sell Your Exotic Car | We Buy Bentley, Porsche & More | Alpha One Motors"
                 ogDescription="Looking to sell your exotic car? Alpha One Motors buys Bentley, Porsche, Ferrari, and other high-end vehicles with fast payment and nationwide pickup."
             />
-            <section className='common-banner-wrap d-flex align-items-center'
-                style={{
-                    position: 'relative',
-                    overflow: 'hidden'
-                }}
-            >
-                <Image 
-                    src={getImages('sell-exotic-hero.webp')} 
-                    alt="Sell Your Exotic Car" 
-                    fill 
-                    priority 
-                    sizes="100vw"
-                    style={{objectFit: 'cover', zIndex: -1}} 
-                />
+            <section className='common-banner-wrap d-flex align-items-center' style={{ position: 'relative', overflow: 'hidden' }} >
+                <div className='min-h-[500px]'>
+                    <Image 
+                        src={getImages('sell-exotic-hero.webp')} 
+                        alt="Sell Your Exotic Car" 
+                        fill 
+                        priority  className=''
+                        sizes="100vw"
+                        style={{objectFit: 'cover', zIndex: -1}} 
+                    />
+                </div>
                 <div className='w-100' style={{ zIndex: 1 }}>
                     <div className='xl-title text-uppercase text-center font-80 letter-spacing-3'>SAME DAY OFFERS</div>
                     <div className='lg-title font-40 text-uppercase text-center fw-300 mt-3'>Enjoy our stress-free process</div>

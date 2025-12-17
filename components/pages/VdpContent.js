@@ -155,12 +155,12 @@ const Vdp = () => {
             <Header />
             <section className='vdp-wrap' style={{ position: 'relative', minHeight: '600px' }}>
                 <Image 
-                    src={getImages('vdp-hero.webp')} 
-                    alt="Hero" 
-                    fill 
-                    priority 
-                    style={{ objectFit: 'cover' }}
-                    sizes="100vw"
+                    src={getImages('vdp-hero.webp')}  
+                    alt="Hero"   
+                    fill   
+                    priority  
+                    style={{ objectFit: 'cover' }} 
+                    sizes="100vw" 
                 />
             </section>
             <section className='vdp-hero-bottom'>
