@@ -26,6 +26,9 @@ export default function Inventory() {
     const [isOpacity, setIsOpacity] = useState(true);
     const [value, setValue] = useState([priceFilterData.min, priceFilterData.max]);
     
+    // Preload first image for LCP
+    const firstVehicleImage = filteredVehicleData && filteredVehicleData.length > 0 && filteredVehicleData[0].images && filteredVehicleData[0].images.length > 0 ? filteredVehicleData[0].images[0] : null;
+
     const handleInputChange = (index, event) => {
         let newValue = Number(event.target.value);
         if (!isNaN(newValue)) {
@@ -251,6 +254,14 @@ export default function Inventory() {
             <Head>
                 <title>Inventory | Alpha One Motors</title>
                 <meta name="description" content="Browse our selection of high-quality used cars at Alpha One Motors." />
+                {firstVehicleImage && (
+                    <link 
+                        rel="preload" 
+                        as="image" 
+                        href={firstVehicleImage} 
+                        fetchpriority="high"
+                    />
+                )}
             </Head>
             <Header />
             <main>

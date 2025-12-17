@@ -80,6 +80,7 @@ const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = f
                                         priority={priority}
                                         unoptimized={true}
                                         onError={handleImageError}
+                                        fetchPriority={priority ? "high" : "auto"}
                                     />
                                 </div>
                             </div>
