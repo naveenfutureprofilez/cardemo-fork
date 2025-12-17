@@ -12,9 +12,9 @@ const VdpAbout = dynamic(() => import('./VdpAbout'), { ssr: false });
 const Footer = dynamic(() => import('../Common/Footer'), { ssr: false });
 import Header from '../Common/Header';
 
-const Vdp = () => {
+const Vdp = ({ initialVehicleData }) => {
     const text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-    const [vehicleVIN, setVehicleVIN] = useState("");
+    const [vehicleVIN, setVehicleVIN] = useState(initialVehicleData?.vin || "");
     const { getVehicleData, vehiclesByVIN, vehicleVINsbyID, numberFormatter, priceFormatter, submitContactForm } = useContext(VehicleContext);
 
     const router = useRouter();
@@ -30,12 +30,7 @@ const Vdp = () => {
              if (urlVin) setVehicleVIN(urlVin);
         }
     }, [vin, router.isReady]);
-    //             console.log("found vehicle ID", vin, vehicleVINsbyID[vin], vehicleVINsbyID);
-    //             setVehicleVIN(vehicleVINsbyID[vin]);
-    //         } else navigate("/cars-for-sale-boerne-tx");
-    //     }
-    // }, [location, vehiclesByVIN]);
-
+    
     /*const defaultVehicleData = {
         exterior_color: "Gray",
         interior_color: "Rosso Ferrari",
@@ -59,9 +54,19 @@ const Vdp = () => {
     
     };*/
 
-    const [vehicleData, setVehicleData] = useState({});
+    const [vehicleData, setVehicleData] = useState(initialVehicleData || {});
     // console.log("vehicleData", vehicleData)
-    const [vehicleExist, setVehicleExist] = useState(false);
+    const [vehicleExist, setVehicleExist] = useState(!!initialVehicleData);
+
+    useEffect(() => {
+        if (initialVehicleData) {
+            setVehicleData(initialVehicleData);
+            setVehicleExist(true);
+            if (initialVehicleData.vin && !vehicleVIN) {
+                setVehicleVIN(initialVehicleData.vin);
+            }
+        }
+    }, [initialVehicleData]);
 
     useEffect(() => {
         getVehicleData();
