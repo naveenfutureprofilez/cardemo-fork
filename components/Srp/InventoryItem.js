@@ -54,6 +54,7 @@ const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = f
                                                     sizes="(max-width: 576px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                     priority={false} // Lazy load
                                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                    unoptimized={true}
                                                 />
                                             </div>
                                         </div>
@@ -71,6 +72,7 @@ const InventoryItem = ({ item, openVDP, priceFormatter, isSlMobile, priority = f
                                         sizes="(max-width: 576px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         priority={priority}
+                                        unoptimized={true}
                                     />
                                 </div>
                             </div>
