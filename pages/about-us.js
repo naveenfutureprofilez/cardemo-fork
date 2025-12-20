@@ -14,15 +14,10 @@ export default function AboutUs() {
                 title="About Us | Alpha One Motors" 
                 description="Alpha One Motors - We Know Luxury Automotive. Leading Texas exotic car dealership with over 25 years of experience."
             />
+            
             <Header />
 
-            <section 
-                className="common-banner-wrap d-flex align-items-center"
-                style={{
-                    position: 'relative',
-                    overflow: 'hidden'
-                }}
-            >
+            <section className="common-banner-wrap d-flex align-items-center" style={{position: 'relative', overflow: 'hidden'}}  >
                 <Image 
                     src={getImages('new-about-hero.webp')} 
                     alt="About Us" 

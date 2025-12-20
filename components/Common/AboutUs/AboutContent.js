@@ -4,7 +4,7 @@ import { getImages } from '../const';
 
 const AboutContent = () => {
     return (
-        <section className="about-content-wrap cv-auto">
+        <section className="bg-black about-content-wrap cv-auto">
             <div className="container mxw-1100    "  >
                 <div className="about-team-block">
                     <Image 
