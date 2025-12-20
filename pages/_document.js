@@ -32,6 +32,7 @@ export default function Document() {
         <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
         
         {/* Preconnect to critical domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://alphaone.greenlightautomotivesolutions.com" />
         <link rel="preconnect" href="https://pictures.dealer.com" />
@@ -40,7 +41,27 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
         
+        {/* Optimized Google Fonts - Load asynchronously */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+          rel="stylesheet"
+          media="print"
+          onLoad="this.media='all'"
+        />
+        <noscript>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+            rel="stylesheet"
+          />
+        </noscript>
+        
         {/* Preload critical resources */}
+        <link rel="preload" as="image" href="/images/banner-image.webp" fetchpriority="high" />
         <link rel="preload" as="font" href="/fonts/HelveticaNeue-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="font" href="/fonts/EurostileRegular.woff2" type="font/woff2" crossOrigin="anonymous" />
         

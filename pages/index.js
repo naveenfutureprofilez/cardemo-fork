@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { getImages } from '@/components/Common/const';
 import Header from '@/components/Common/Header';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
-import InstagramFeed from '@/components/Home/InstagramFeed';
+const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
 const HomeRateAbout = dynamic(() => import('@/components/Home/HomeRateAbout'), { ssr: false });
 const ModalLayout = dynamic(() => import('@/components/Common/ModalLayout'), { ssr: false });
@@ -61,17 +61,20 @@ export default function Home() {
       <Header secref={section2Ref} />
 
       <section className='banner-wrap'>
-        <div className="slideshow" style={{ position: 'relative' }}>
+        <div className="slideshow" style={{ position: 'relative', backgroundColor: '#1a1a1a' }}>
           <Image 
             src={getImages('banner-image.webp')} 
             alt="Banner" 
             fill 
             priority 
             fetchPriority="high"
-            quality={75}
+            quality={60}
+            loading="eager"
             className="slideshow-image"
             style={{ objectFit: 'cover' }} 
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRhIAAABXRUJQVlA4IAYAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="
           />
         </div>
         <div className='banner-shadow'></div> 
