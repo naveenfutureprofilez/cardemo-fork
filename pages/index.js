@@ -87,8 +87,6 @@ export default function Home() {
             className="slideshow-image"
             style={{ objectFit: 'cover' }} 
             sizes="100vw"
-            placeholder="blur"
-            blurDataURL="data:image/webp;base64,UklGRhIAAABXRUJQVlA4IAYAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="
           />
         </div>
         <div className='banner-shadow'></div> 
