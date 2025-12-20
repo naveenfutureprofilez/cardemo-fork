@@ -48,10 +48,6 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
         
-        {/* Bootstrap CSS - Load with high priority but non-blocking */}
-        <link rel="preload" href="/bootstrap.min.css" as="style" />
-        <link rel="stylesheet" href="/bootstrap.min.css" />
-        
         {/* Slick Carousel CSS */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" media="print" onLoad="this.media='all'" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" media="print" onLoad="this.media='all'" />
@@ -79,9 +75,6 @@ export default function Document() {
         <link rel="preload" as="image" href="/images/banner-image.webp" fetchpriority="high" />
         <link rel="preload" as="font" href="/fonts/HelveticaNeue-Medium.woff2" type="font/woff2" crossOrigin="anonymous" fetchpriority="high" />
         <link rel="preload" as="font" href="/fonts/EurostileRegular.woff2" type="font/woff2" crossOrigin="anonymous" fetchpriority="high" />
-        
-        {/* Preload CSS for faster parsing */}
-        <link rel="preload" href="/_next/static/css/app.css" as="style" />
         
         
       </Head>

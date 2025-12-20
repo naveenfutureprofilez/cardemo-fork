@@ -6,7 +6,7 @@ import { getImages } from '@/components/Common/const';
 import Header from '@/components/Common/Header';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 import InstagramFeed from '@/components/Home/InstagramFeed';
-import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
+const EnterVehicleInfo = dynamic(() => import('@/components/Home/EnterVehicleInfo'), { ssr: false, loading: () => <div className="rounded-[10px] !p-[30px] md:!p-[50px] md:!pb-[70px] md:!pt-[30px] shadow-md lg:max-w-[410px] backdrop-blur-[10px] bg-white/10 w-full" aria-busy="true">Loading...</div> });
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
 const HomeRateAbout = dynamic(() => import('@/components/Home/HomeRateAbout'), { ssr: false });
 const ModalLayout = dynamic(() => import('@/components/Common/ModalLayout'), { ssr: false });
@@ -84,8 +84,7 @@ export default function Home() {
             fill 
             priority 
             fetchPriority="high"
-            quality={50}
-            loading="eager"
+            quality={40}
             className="slideshow-image"
             style={{ objectFit: 'cover' }} 
             sizes="100vw"
