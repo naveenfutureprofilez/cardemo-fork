@@ -215,7 +215,15 @@ const Vdp = ({ initialVehicleData }) => {
                         <div className='row vdpg-block'>
                             <div className='col-md-6 col-6'>
                                 <div className='vdpg-box'>
-                                    <Image src={getImages('vdp-thumb1.webp')} alt='' width={320} height={180} sizes="(max-width: 768px) 50vw, 33vw" />
+                                    <Image 
+                                        src={getImages('vdp-thumb1.webp')} 
+                                        alt='' 
+                                        width={320} 
+                                        height={180} 
+                                        sizes="(max-width: 768px) 50vw, 33vw" 
+                                        priority
+                                        fetchPriority="high"
+                                    />
                                 </div>
                             </div>
                             <div className='col-md-6 col-6'>

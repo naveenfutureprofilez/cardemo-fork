@@ -6,6 +6,7 @@ import { getImages } from '@/components/Common/const';
 import Header from '@/components/Common/Header';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 import InstagramFeed from '@/components/Home/InstagramFeed';
+import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
 const HomeRateAbout = dynamic(() => import('@/components/Home/HomeRateAbout'), { ssr: false });
 const ModalLayout = dynamic(() => import('@/components/Common/ModalLayout'), { ssr: false });
@@ -13,7 +14,7 @@ const VehicleConsignmentInquiry = dynamic(() => import('@/components/Home/Vehicl
 const MoreInfoAppraiseModal = dynamic(() => import('@/components/Home/MoreInfoAppraiseModal'), { ssr: false });
 // const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
 // import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
-const EnterVehicleInfo = dynamic(() => import('@/components/Home/EnterVehicleInfo'), { ssr: false });
+// const EnterVehicleInfo = dynamic(() => import('@/components/Home/EnterVehicleInfo'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Common/Footer'), { ssr: false });
 
 export default function Home() {
@@ -53,7 +54,7 @@ export default function Home() {
   const [showFooter, setShowFooter] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 400) {
         setShowFooter(true);
         window.removeEventListener('scroll', handleScroll);
       }

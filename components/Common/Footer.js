@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { getImages } from './const';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
         <div className="md:flex items-start md:items-center justify-between pb-6 md:!pb-12 !py-12 border-b-0">
           <div className="w-full md:w-auto mb-8 md:mb-0">
                 <Link className='flex md:flex justify-center lg:justify-start ' href="/" prefetch={false}>
-                    <Image src="/images/alpha-one-logo.webp"
+                    <Image src={getImages("alpha-one-logo.webp")}
                     alt="Alpha One Motors" width={220} height={40}
                     className="inline-block w-56 md:w-[220px] h-auto" />
                 </Link>

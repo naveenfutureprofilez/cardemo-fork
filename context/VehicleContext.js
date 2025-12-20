@@ -58,6 +58,9 @@ export const VehicleContextProvider = ({ children, initialData }) => {
 
         } catch (error) {
             console.error('Error fetching vehicles:', error);
+            // Handle error by initializing empty data to stop loading state
+            setVehicleData([]);
+            setFilteredVehicleData([]);
             return {};
         }
     };
@@ -93,14 +96,26 @@ export const VehicleContextProvider = ({ children, initialData }) => {
 
         setFilterVisibility();
 
-        Object.keys(currentFilterData).map((i) => {
-            currentFilterData[i].map((filter, j) => {
-                currentFilterData[i][j].visible = 0;
-                Object.keys(filteredResults).map((x) => {
-                    if (filteredResults[x][i] == filter['name']) currentFilterData[i][j].visible++;
-                });
+        // Optimized counting logic using a lookup map to avoid O(N^3) complexity
+        const filterMap = {};
+        Object.keys(currentFilterData).forEach(key => {
+            filterMap[key] = {};
+            currentFilterData[key].forEach(filter => {
+                filter.visible = 0;
+                filterMap[key][filter.name] = filter;
             });
         });
+
+        if (Array.isArray(filteredResults)) {
+            filteredResults.forEach(vehicle => {
+                Object.keys(currentFilterData).forEach(key => {
+                    const val = vehicle[key];
+                    if (filterMap[key] && filterMap[key][val]) {
+                        filterMap[key][val].visible++;
+                    }
+                });
+            });
+        }
 
         return filteredResults;
     }
@@ -132,14 +147,14 @@ export const VehicleContextProvider = ({ children, initialData }) => {
 
         if (selectedYears.length > 0) visible_makes = selectedYears.flatMap((v, i) => { return v.assocMakes; }).filter(w => visible_makes.includes(w));
 
-        currentFilterData['make'].map((v, i) => {
+        currentFilterData['make'].forEach((v, i) => {
             currentFilterData['make'][i].isVisible = (selectedYears.length == 0) || visible_makes.includes(v.name);
         });
 
         if (selectedYears.length > 0) visible_models = selectedYears.flatMap((v, i) => { return v.assocModels; }).filter(w => visible_models.includes(w));
         if (selectedMakes.length > 0) visible_models = selectedMakes.flatMap((v, i) => { return v.assocModels; }).filter(w => visible_models.includes(w));
 
-        currentFilterData['model'].map((v, i) => {
+        currentFilterData['model'].forEach((v, i) => {
             currentFilterData['model'][i].isVisible = (selectedYears.length == 0 && selectedMakes.length == 0) || visible_models.includes(v.name);
         });
 
@@ -147,7 +162,7 @@ export const VehicleContextProvider = ({ children, initialData }) => {
         if (selectedMakes.length > 0) visible_trims = selectedMakes.flatMap((v, i) => { return v.assocTrims; }).filter(w => visible_trims.includes(w));
         if (selectedModels.length > 0) visible_trims = selectedModels.flatMap((v, i) => { return v.assocTrims; }).filter(w => visible_trims.includes(w));
 
-        currentFilterData['trim'].map((v, i) => {
+        currentFilterData['trim'].forEach((v, i) => {
             currentFilterData['trim'][i].isVisible = (selectedYears.length == 0 && selectedMakes.length == 0 && selectedModels.length == 0) || visible_trims.includes(v.name);
         });
 
@@ -156,7 +171,7 @@ export const VehicleContextProvider = ({ children, initialData }) => {
         if (selectedModels.length > 0) visible_body_styles = selectedModels.flatMap((v, i) => { return v.assocBodyStyles; }).filter(w => visible_body_styles.includes(w));
         if (selectedTrims.length > 0) visible_body_styles = selectedTrims.flatMap((v, i) => { return v.assocBodyStyles; }).filter(w => visible_body_styles.includes(w));
 
-        currentFilterData['body_style'].map((v, i) => {
+        currentFilterData['body_style'].forEach((v, i) => {
             currentFilterData['body_style'][i].isVisible = (selectedYears.length == 0 && selectedMakes.length == 0 && selectedModels.length == 0 && selectedModels.length == 0 && selectedTrims.length == 0) || visible_body_styles.includes(v.name);
         });
     }

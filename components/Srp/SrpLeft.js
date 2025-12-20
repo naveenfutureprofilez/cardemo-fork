@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { getImages } from '../Common/const';
@@ -23,7 +24,7 @@ const SrpLeft = ({
                 <div className='srpl-heading d-lg-none'>
                     <div className='csmodal-title'>Filters</div>
                     <button type='button' className='filter-close' onClick={handleCloseFilter}>
-                        <img src={getImages('close-icon.webp')} alt='close' />
+                        <Image src={getImages('close-icon.webp')} alt='close' width={27} height={26} />
                     </button>
                 </div>
                 <div className='srpl-body'>
@@ -71,7 +72,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('year.svg')} />
+                                            <Image src={getImages('year.svg')} alt='Year' width={24} height={25} />
                                         </div>
                                         <div className='slc-title'>Year</div>
                                     </div>
@@ -86,7 +87,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('make.svg')} />
+                                            <Image src={getImages('make.svg')} alt='Make' width={24} height={18} />
                                         </div>
                                         <div className='slc-title'>Make</div>
                                     </div>
@@ -101,7 +102,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('model.svg')} />
+                                            <Image src={getImages('model.svg')} alt='Model' width={24} height={23} />
                                         </div>
                                         <div className='slc-title'>Model</div>
                                     </div>
@@ -116,7 +117,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('mileage.svg')} />
+                                            <Image src={getImages('mileage.svg')} alt='Mileage' width={30} height={20} />
                                         </div>
                                         <div className='slc-title'>Mileage</div>
                                     </div>
@@ -131,7 +132,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('ext-color.svg')} />
+                                            <Image src={getImages('ext-color.svg')} alt='Exterior Color' width={14} height={24} />
                                         </div>
                                         <div className='slc-title'>Ext Color</div>
                                     </div>
@@ -146,7 +147,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('int-color.svg')} />
+                                            <Image src={getImages('int-color.svg')} alt='Interior Color' width={24} height={23} />
                                         </div>
                                         <div className='slc-title'>Int Color</div>
                                     </div>
@@ -161,7 +162,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('body-style.svg')} />
+                                            <Image src={getImages('body-style.svg')} alt='Body Style' width={22} height={22} />
                                         </div>
                                         <div className='slc-title'>Body Style</div>
                                     </div>
@@ -176,7 +177,7 @@ const SrpLeft = ({
                                 >
                                     <div className='w-100'>
                                         <div className='mb-2'>
-                                            <img src={getImages('transmission.svg')} />
+                                            <Image src={getImages('transmission.svg')} alt='Transmission' width={22} height={22} />
                                         </div>
                                         <div className='slc-title'>Transmission</div>
                                     </div>
