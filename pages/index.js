@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -47,6 +47,18 @@ export default function Home() {
 
   const [appraisalContactInfo, setAppraisalContactInfo] = useState({});
   const formikRef = useRef(null);
+  const [showFooter, setShowFooter] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowFooter(true);
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -173,55 +185,60 @@ export default function Home() {
         </div>
       </section>
 
-      <LazyLoadSection>
-        <ExoticConsignment handleConsignmentModal={handleConsignmentModal} />
-      </LazyLoadSection>
+      {showFooter ? 
+        <>
+          <LazyLoadSection>
+            <ExoticConsignment handleConsignmentModal={handleConsignmentModal} />
+          </LazyLoadSection>
 
-      <LazyLoadSection>
-        <section className='alpha-one-wrap'>
-          <div className='container container-lg'>
-            <div className='row gx-5'>
-              <div className='col-md-6'>
-                <div className='black-box d-flex align-items-center'>
-                  <div>
-                    <Image src={getImages('ao-ford-logo.webp')} alt="Alpha One Ford" width={200} height={60} style={{ width: 'auto', height: 'auto', maxWidth: '100%' }} />
+          <LazyLoadSection>
+            <section className='alpha-one-wrap'>
+              <div className='container container-lg'>
+                <div className='row gx-5'>
+                  <div className='col-md-6'>
+                    <div className='black-box d-flex align-items-center'>
+                      <div>
+                        <Image src={getImages('ao-ford-logo.webp')} alt="Alpha One Ford" width={200} height={60} style={{ width: 'auto', height: 'auto', maxWidth: '100%' }} />
+                      </div>
+                      <div className='ps-4'>
+                        <div className='sm-title text-uppercase font-18 font-euro mb-3'>Alpha One Ford</div>
+                        <div>
+                          <a href='https://www.alphaoneford.com/' target="_blank" rel="noopener noreferrer" className='black-btn pe-5 fw-300 text-uppercase'><span className="white-caret-icon"></span> Visit Site</a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className='ps-4'>
-                    <div className='sm-title text-uppercase font-18 font-euro mb-3'>Alpha One Ford</div>
-                    <div>
-                      <a href='https://www.alphaoneford.com/' target="_blank" rel="noopener noreferrer" className='black-btn pe-5 fw-300 text-uppercase'><span className="white-caret-icon"></span> Visit Site</a>
+                  <div className='col-md-6'>
+                    <div className='black-box d-flex align-items-center'>
+                      <div>
+                        <Image src={getImages('ao-chv-logo.webp')} alt="Alpha One Chevrolet" width={200} height={60} style={{ width: 'auto', height: 'auto', maxWidth: '100%' }} />
+                      </div>
+                      <div className='ps-4'>
+                        <div className='sm-title text-uppercase font-18 font-euro mb-3'>Alpha One Chevrolet</div>
+                        <div>
+                          <a href='https://www.alphaonechevrolet.com/' target="_blank" rel="noopener noreferrer" className='black-btn pe-5 fw-300 text-uppercase'><span className="white-caret-icon"></span> Visit Site</a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='col-md-6'>
-                <div className='black-box d-flex align-items-center'>
-                  <div>
-                    <Image src={getImages('ao-chv-logo.webp')} alt="Alpha One Chevrolet" width={200} height={60} style={{ width: 'auto', height: 'auto', maxWidth: '100%' }} />
-                  </div>
-                  <div className='ps-4'>
-                    <div className='sm-title text-uppercase font-18 font-euro mb-3'>Alpha One Chevrolet</div>
-                    <div>
-                      <a href='https://www.alphaonechevrolet.com/' target="_blank" rel="noopener noreferrer" className='black-btn pe-5 fw-300 text-uppercase'><span className="white-caret-icon"></span> Visit Site</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </LazyLoadSection>
+            </section>
+          </LazyLoadSection>
 
-      <LazyLoadSection>
-        <HomeRateAbout />
-      </LazyLoadSection>
+        <LazyLoadSection>
+            <HomeRateAbout />
+          </LazyLoadSection> 
+        </>
+      : ''}
+      {showFooter ? 
       <section className=' insta-wrap' ref={section1Ref}>
         <LazyLoadSection rootMargin="1000px">
           <InstagramFeed/>
         </LazyLoadSection>
-      </section>
+      </section> : ''}
 
-      <Footer />
+      {showFooter && <Footer />}
 
       {openConsignmentModal &&
         <ModalLayout open={openConsignmentModal} close={closeConsignmentModal} darkThemeCls='true' modalWidth={1200}>
