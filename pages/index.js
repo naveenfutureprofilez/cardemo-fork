@@ -4,6 +4,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getImages } from '@/components/Common/const';
 import Header from '@/components/Common/Header';
+
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
