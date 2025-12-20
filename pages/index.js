@@ -94,7 +94,7 @@ export default function Home() {
             <Image src={getImages('facility-image1.webp')} alt="Our Latest" width={800} height={600} quality={50} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto' }} />
             <div className='facility-pos d-flex align-items-center'>
               <div className='w-100'>
-                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4'>Our <br />LATEST</div>
+                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4 text-white'>Our <br />LATEST</div>
                 <div className='mt-3'>
                   <button onClick={() => scrollToSection(section1Ref)} className='white-btn pe-5'>
                     <span className='caret-right-icon'></span> View
@@ -107,7 +107,7 @@ export default function Home() {
             <Image src={getImages('facility-image2.webp')} alt="Get Your Cash Offer" width={800} height={600} quality={50} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: 'auto' }} />
             <div className='facility-pos d-flex align-items-center'>
               <div className='w-100'>
-                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4'>Get Your <br />Cash Offer</div>
+                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4 text-white'>Get Your <br />Cash Offer</div>
                 <div className='mt-3'>
                   <button onClick={() => scrollToSection(section2Ref)} className='white-btn pe-5'>
                     <span className='caret-right-icon'></span> View
@@ -120,7 +120,7 @@ export default function Home() {
             <Image src={getImages('facility-image3.webp')} alt="Consignment Services" width={800} height={600} quality={50} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: 'auto' }} />
             <div className='facility-pos d-flex align-items-center'>
               <div className='w-100'>
-                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4'>Consignment <br />Services</div>
+                <div className='text-2xl md:text-4xl font-euro font-bold  text-uppercase mb-4 text-white'>Consignment <br />Services</div>
                 <div className='mt-3'>
                   <button type="button" onClick={handleConsignmentModal} className='white-btn pe-5'><span className='caret-right-icon'></span> View</button>
                 </div>
