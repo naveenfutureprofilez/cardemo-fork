@@ -44,6 +44,7 @@ export default function Document() {
         <link rel="preconnect" href="https://alphaone.greenlightautomotivesolutions.com" />
         <link rel="preconnect" href="https://pictures.dealer.com" />
         <link rel="preconnect" href="https://inventory.dealersocket.com" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://cdninstagram.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
@@ -64,9 +65,24 @@ export default function Document() {
           media="print"
           onLoad="this.media='all'"
         />
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+          media="print"
+          onLoad="this.media='all'"
+        />
         <noscript>
           <link
             href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
           />
         </noscript>

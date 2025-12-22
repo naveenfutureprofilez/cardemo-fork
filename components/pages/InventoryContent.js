@@ -61,10 +61,16 @@ export default function Inventory({ initialData }) {
 
     useEffect(() => {
         if (filteredVehicleData) {
-            setIsDataLoaded(false);
-            setTimeout(() => {
+            const id1 = setTimeout(() => {
+                setIsDataLoaded(false);
+            }, 0);
+            const id2 = setTimeout(() => {
                 setIsOpacity(false);
             }, 100);
+            return () => {
+                clearTimeout(id1);
+                clearTimeout(id2);
+            };
         }
     }, [filteredVehicleData]);
 
@@ -205,9 +211,12 @@ export default function Inventory({ initialData }) {
     };
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            handleSlResize();
+            const id = setTimeout(() => {
+                handleSlResize();
+            }, 0);
             window.addEventListener('resize', handleSlResize);
             return () => {
+                clearTimeout(id);
                 window.removeEventListener('resize', handleSlResize);
             };
         }
@@ -229,7 +238,10 @@ export default function Inventory({ initialData }) {
 
     // Reset visible count when filters change
     useEffect(() => {
-        setVisibleCount(12);
+        const id = setTimeout(() => {
+            setVisibleCount(12);
+        }, 0);
+        return () => clearTimeout(id);
     }, [filteredVehicleData]);
 
     const sortedVehicles = useMemo(() => {

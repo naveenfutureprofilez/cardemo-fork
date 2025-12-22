@@ -170,7 +170,7 @@ const Vdp = ({ initialVehicleData }) => {
                     fill   
                     priority
                     fetchPriority="high"
-                    quality={60}
+                    quality={40}
                     style={{ objectFit: 'cover' }} 
                     sizes="100vw" 
                 />

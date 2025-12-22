@@ -21,21 +21,25 @@ const SearchComponent = ({filteredVehicleData, searchText, setSearchText, openVD
         }
     }, []);
 
-    const [searchTimer, setSearchTimer] = useState(null);
+    const searchTimerRef = useRef(null);
 
     useEffect(() => {
 
         if(searchText == "") return;
 
-        clearTimeout(searchTimer);
+        if (searchTimerRef.current) {
+            clearTimeout(searchTimerRef.current);
+        }
 
-        const newTimer = setTimeout(() => {
+        searchTimerRef.current = setTimeout(() => {
             setIsVisible(false);
         }, 20000)
 
-        setSearchTimer(newTimer)
-
-        setIsVisible(true);
+        return () => {
+            if (searchTimerRef.current) {
+                clearTimeout(searchTimerRef.current);
+            }
+        };
     },[searchText]);
 
     //const [timer, setTimer] = useState(null);
@@ -44,6 +48,7 @@ const SearchComponent = ({filteredVehicleData, searchText, setSearchText, openVD
     const searchInputChanged = (val) => {
 
         setSearchText(val);
+        setIsVisible(true);
 
         /*setVehicleSearchText(val);
 

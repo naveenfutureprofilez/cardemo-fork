@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImages } from '@/components/Common/const';
@@ -57,6 +57,24 @@ const reviewsList = [
 ];
 
 const WhyUsReviews = () => {
+    const [fallback, setFallback] = useState(false);
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            try {
+                const root = containerRef.current;
+                if (!root) return;
+                const slides = root.querySelectorAll('.slick-slide');
+                const visible = Array.from(slides).some(s => s.offsetWidth > 0 && s.offsetHeight > 0);
+                if (!visible) setFallback(true);
+            } catch (_) {
+                setFallback(true);
+            }
+        }, 800);
+        return () => clearTimeout(timer);
+    }, []);
+
     const settings = {
         dots: false,
         infinite: true,
@@ -96,44 +114,84 @@ const WhyUsReviews = () => {
                 <div className="fading lg-title fw-normal text-center font-40 mb-5 text-uppercase">
                     See what our Customers Have to Say!
                 </div>
-                <div className="mt-70 fading">
-                    <Slider {...settings} className="wbecs-slider">
-                        {reviewsList.map((review, index) => (
-                            <div key={index}>
-                                <div className="wbe-cs-box">
-                                    <div className="flex items-center justify-content-between mb-2">
-                                        <div className="flex items-center gap-2">
-                                            <div className="fading wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
-                                                {review.name?.charAt(0).toUpperCase()}
+                <div className="mt-70 fading" ref={containerRef}>
+                    {!fallback ? (
+                        <Slider {...settings} className="wbecs-slider">
+                            {reviewsList.map((review, index) => (
+                                <div key={index}>
+                                    <div className="wbe-cs-box">
+                                        <div className="flex items-center justify-content-between mb-2">
+                                            <div className="flex items-center gap-2">
+                                                <div className="fading wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
+                                                    {review.name?.charAt(0).toUpperCase()}
+                                                </div>
+                                                <div className="fading pl-3">
+                                                    <div className="xs-title font-bold text-black helveticaneue">{review.name}</div>
+                                                </div>
                                             </div>
-                                            <div className="fading pl-3">
-                                                <div className="xs-title font-bold text-black helveticaneue">{review.name}</div>
+                                            <div className="fading g-icon">
+                                                <Image src={getImages('icon.svg')} alt="Google" width={48} height={48} />
                                             </div>
                                         </div>
-                                        <div className="fading g-icon">
-                                            <Image src={getImages('icon.svg')} alt="Google" width={48} height={48} />
+                                        <div className="flex gap-1 wbe-cs-rating mb-2">
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block verify-icon ml-2" src={getImages('ti-verified.svg')} alt="verified" width={16} height={16} />
                                         </div>
-                                    </div>
-                                    <div className="flex gap-1 wbe-cs-rating mb-2">
-                                        <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
-                                        <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
-                                        <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
-                                        <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
-                                        <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
-                                        <Image className="fading inline-block verify-icon ml-2" src={getImages('ti-verified.svg')} alt="verified" width={16} height={16} />
-                                    </div>
-                                    <div className="mb-1 wbe-cs-content">
-                                        <p>{review.content}</p>
-                                    </div>
-                                    <div>
-                                        <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
-                                            Read more
-                                        </a>
+                                        <div className="mb-1 wbe-cs-content">
+                                            <p>{review.content}</p>
+                                        </div>
+                                        <div>
+                                            <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
+                                                Read more
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </Slider>
+                            ))}
+                        </Slider>
+                    ) : (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '20px' }}>
+                            {reviewsList.map((review, index) => (
+                                <div key={index}>
+                                    <div className="wbe-cs-box">
+                                        <div className="flex items-center justify-content-between mb-2">
+                                            <div className="flex items-center gap-2">
+                                                <div className="fading wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>
+                                                    {review.name?.charAt(0).toUpperCase()}
+                                                </div>
+                                                <div className="fading pl-3">
+                                                    <div className="xs-title font-bold text-black helveticaneue">{review.name}</div>
+                                                </div>
+                                            </div>
+                                            <div className="fading g-icon">
+                                                <Image src={getImages('icon.svg')} alt="Google" width={48} height={48} />
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-1 wbe-cs-rating mb-2">
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block star-icon" src={getImages('star.svg')} alt="star" width={24} height={22} />
+                                            <Image className="fading inline-block verify-icon ml-2" src={getImages('ti-verified.svg')} alt="verified" width={16} height={16} />
+                                        </div>
+                                        <div className="mb-1 wbe-cs-content">
+                                            <p>{review.content}</p>
+                                        </div>
+                                        <div>
+                                            <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="wbe-read-more">
+                                                Read more
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="fading text-center mt-75">
                     <a href="https://share.google/erYHCMlUwduOzew3b" target="_blank" rel="noopener noreferrer" className="black-btn get-started-btn font-bold uppercase w-330 inline-block lg-btn">

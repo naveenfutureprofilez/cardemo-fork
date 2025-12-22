@@ -64,10 +64,9 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
     });
 
     // Custom SearchBox Component
-    const CustomSearchBox = ({ onHitClick, queryHook }) => {
-        if (!AlgoliaComponents) return null;
-
-        const { refine, currentRefinement } = AlgoliaComponents.useSearchBox({ queryHook });
+    const CustomSearchBox = ({ onHitClick, queryHook, components }) => {
+        const { useSearchBox, useHits, Hits } = components;
+        const { refine, currentRefinement } = useSearchBox({ queryHook });
         const [isFocused, setIsFocused] = useState(false);
         const [selectedHit, setSelectedHit] = useState("");
         
@@ -86,7 +85,7 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
             onHitClick(hit);
         };
 
-        const { items } = AlgoliaComponents.useHits();
+        const { items } = useHits();
 
         return (
             <>
@@ -105,7 +104,7 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                         placeholder="Year Make Model Trim or VIN"
                     />
                     {isFocused && items.length > 0 && (
-                        <AlgoliaComponents.Hits hitComponent={({ hit }) => (
+                        <Hits hitComponent={({ hit }) => (
                             <div className="hit" onMouseDown={() => handleHitClick(hit)}>
                                 <p>{hit.vehicle_name}</p>
                             </div>
@@ -149,7 +148,8 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                                 <AlgoliaComponents.InstantSearch indexName="taxonomy_vins" searchClient={searchClient}>
                                     <CustomSearchBox 
                                         onHitClick={handleSearchClick} 
-                                        queryHook={queryHook} 
+                                        queryHook={queryHook}
+                                        components={AlgoliaComponents}
                                     />
                                 </AlgoliaComponents.InstantSearch>
                             ) : (
@@ -168,7 +168,8 @@ const MyVehicleForm = ({ setGetQuoteModal, setSelectedValue, sotForm }) => {
                                     <AlgoliaComponents.InstantSearch indexName="taxonomy_vins" searchClient={searchClient}>
                                         <CustomSearchBox 
                                             onHitClick={handleSearchClick} 
-                                            queryHook={queryHook} 
+                                            queryHook={queryHook}
+                                            components={AlgoliaComponents}
                                         />
                                     </AlgoliaComponents.InstantSearch>
                                 ) : (

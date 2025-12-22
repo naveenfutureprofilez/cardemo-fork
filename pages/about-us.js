@@ -23,8 +23,7 @@ export default function AboutUs() {
                     fill 
                     priority 
                     fetchPriority="high"
-                    loading="eager"
-                    quality={50}
+                    quality={40}
                     sizes="100vw"
                     placeholder="blur"
                     blurDataURL="data:image/webp;base64,UklGRhIAAABXRUJQVlA4IAYAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="

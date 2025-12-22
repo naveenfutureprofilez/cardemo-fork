@@ -66,7 +66,7 @@ const SellMyExotic = () => {
                         alt="Sell Your Exotic Car" 
                         fill 
                         priority
-                        quality={60}
+                        quality={40}
                         fetchPriority="high"
                         className=''
                         sizes="100vw"
