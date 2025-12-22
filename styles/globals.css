@@ -960,6 +960,22 @@ img {
     animation-duration: 10s;
     opacity: 1
 }
+@media (prefers-reduced-motion: reduce) {
+    .slideshow-image {
+        -webkit-animation-name: none;
+        animation-name: none;
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+}
+@media(max-width: 768px) {
+    .slideshow-image {
+        -webkit-animation-name: none;
+        animation-name: none;
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+}
 
 @-webkit-keyframes kenburns-1 {
     0% {

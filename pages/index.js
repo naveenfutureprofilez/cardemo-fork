@@ -6,8 +6,8 @@ import { getImages } from '@/components/Common/const';
 import Header from '@/components/Common/Header';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 // import InstagramFeed from '@/components/Home/InstagramFeed';
-const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
 import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
+const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
 const HomeRateAbout = dynamic(() => import('@/components/Home/HomeRateAbout'), { ssr: false });
 const ModalLayout = dynamic(() => import('@/components/Common/ModalLayout'), { ssr: false });
@@ -75,18 +75,18 @@ export default function Home() {
       <Header secref={section2Ref} />
 
       <section className='banner-wrap'>
-        <div className="slideshow" style={{ position: 'relative', backgroundColor: '#1a1a1a' }}>
+        <div className="slideshow" style={{ position: 'relative', backgroundColor: '#1a1a1a', backgroundImage: 'url(/images/banner-image.webp)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
           <Image 
             src={getImages('banner-image.webp')} 
             alt="Banner" 
             priority 
             fetchPriority="high"
-            quality={40}
+            quality={10}
             className="slideshow-image"
             width={1920}
             height={1080}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            sizes="100vw"
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, 1400px"
           />
         </div>
         <div className='banner-shadow'></div> 
