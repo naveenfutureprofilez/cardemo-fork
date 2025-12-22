@@ -7,8 +7,7 @@ import Header from '@/components/Common/Header';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 // import InstagramFeed from '@/components/Home/InstagramFeed';
 const InstagramFeed = dynamic(() => import('@/components/Home/InstagramFeed'), { ssr: false });
-// import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
-const EnterVehicleInfo = dynamic(() => import('@/components/Home/EnterVehicleInfo'), { ssr: false, loading: () => <div className="rounded-[10px] !p-[30px] md:!p-[50px] md:!pb-[70px] md:!pt-[30px] shadow-md lg:max-w-[410px] backdrop-blur-[10px] bg-white/10 w-full" aria-busy="true">Loading...</div> });
+import EnterVehicleInfo from '@/components/Home/EnterVehicleInfo';
 const ExoticConsignment = dynamic(() => import('@/components/Home/ExoticConsignment'), { ssr: false });
 const HomeRateAbout = dynamic(() => import('@/components/Home/HomeRateAbout'), { ssr: false });
 const ModalLayout = dynamic(() => import('@/components/Common/ModalLayout'), { ssr: false });
@@ -83,7 +82,9 @@ export default function Home() {
             fill 
             priority 
             fetchPriority="high"
-            quality={40}
+            quality={35}
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nIzFhMWExYScvPjwvc3ZnPg=="
             className="slideshow-image"
             style={{ objectFit: 'cover' }} 
             sizes="100vw"
