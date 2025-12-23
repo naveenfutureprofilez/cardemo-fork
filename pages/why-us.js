@@ -31,7 +31,7 @@ export default function WhyUs() {
                     priority  
                     fetchPriority="high" 
                     sizes="100vw" 
-                    quality={35}
+                    quality={20}
                     style={{ objectFit: 'cover', zIndex: -1 }}
                     placeholder="blur"
                     blurDataURL={getImages('about-hero.webp?quality=1')}
