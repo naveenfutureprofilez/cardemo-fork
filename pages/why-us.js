@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { getImages } from '@/components/Common/const';
 import Header from '../components/Common/Header';
 import SeoMeta from '../components/Common/SeoMeta';
+import { useEffect, useState } from 'react';
 // import WhyUsContent from '../components/Common/WhyUs/WhyUsContent';
 // import LazyLoadSection from '../components/Common/LazyLoadSection';
 // const SeoMeta = dynamic(() => import('../components/Common/SeoMeta'), { ssr: true });
@@ -12,12 +13,24 @@ const WhyUsContent = dynamic(() => import('../components/Common/WhyUs/WhyUsConte
 const Footer = dynamic(() => import('../components/Common/Footer'), { ssr: false });
 
 export default function WhyUs() {
+    const [showFooter, setShowFooter] = useState(false);
+      useEffect(() => {
+        const handleScroll = () => {
+          if (window.scrollY > 400) {
+            setShowFooter(true);
+            window.removeEventListener('scroll', handleScroll);
+          }
+        };
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
     return (
         <>
             <SeoMeta 
                 title="Why Choose Us | Alpha One Motors" 
-                description="Why choose Alpha One Motors - We Know Luxury Automotive. 5000+ customers served, 4.7 Google rating, 193 reviews."
-            />
+                description="Why choose Alpha One Motors - We Know Luxury Automotive. 5000+ customers served, 4.7 Google rating, 193 reviews." />
             <Header />
 
             <section 
@@ -52,10 +65,9 @@ export default function WhyUs() {
             </section>
             <main role="main">
                 <WhyUsContent />
-                <WhyUsReviews />
+                {showFooter  ? <WhyUsReviews /> : ''}
             </main>
-
-            <Footer />
+            {showFooter  ? <Footer /> : ''}
         </>
     );
 }
