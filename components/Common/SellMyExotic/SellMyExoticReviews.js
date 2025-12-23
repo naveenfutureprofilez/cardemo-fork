@@ -145,61 +145,32 @@ const SellMyExoticReviews = () => {
                 <div className='fading hpb-xs-title text-uppercase mb-3'>Recent</div>
                 <div className='fading lg-title text-center font-40 text-uppercase mb-md-5 mb-4'>Google Reviews</div>
                 <div className='' ref={containerRef}>
-                    {!fallback && !isMobile ? (
-                        <Slider ref={sliderRef} key={bpKey} {...settings} className='review-slider'>
-                            {reviewsList.map((review, index) => (
-                                <div className="review-item" key={index}>
-                                    <div className="review-box">
-                                        <span className='google-icon '>
-                                            <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
-                                        </span>
-                                        <div className="review-mnh ">
-                                            <p className="clamp-4">
-                                                {review.content}
-                                            </p>
-                                        </div>
-                                        <div className="d-block align-items-end justify-content-between mt-1">
-                                            <div>
-                                                <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
-                                                    ))}
-                                                </div>
-                                                <div className="reviewer-name">{review.name}</div>
+                    <Slider ref={sliderRef} key={bpKey} {...settings} className='review-slider'>
+                        {reviewsList.map((review, index) => (
+                            <div className="review-item wow fadeInUp" data-wow-duration="1s" data-wow-delay={`${index * 0.1}s`} key={index}>
+                                <div className="review-box">
+                                    <span className='google-icon '>
+                                        <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
+                                    </span>
+                                    <div className="review-mnh ">
+                                        <p className="clamp-4">
+                                            {review.content}
+                                        </p>
+                                    </div>
+                                    <div className="d-block align-items-end justify-content-between mt-1">
+                                        <div>
+                                            <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
+                                                ))}
                                             </div>
+                                            <div className="reviewer-name">{review.name}</div>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </Slider>
-                    ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: '20px' }}>
-                            {reviewsList.map((review, index) => (
-                                <div className="review-item" key={index}>
-                                    <div className="review-box">
-                                        <span className='google-icon '>
-                                            <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
-                                        </span>
-                                        <div className="review-mnh ">
-                                            <p className="clamp-4">
-                                                {review.content}
-                                            </p>
-                                        </div>
-                                        <div className="d-block align-items-end justify-content-between mt-1">
-                                            <div>
-                                                <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
-                                                    ))}
-                                                </div>
-                                                <div className="reviewer-name">{review.name}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                            </div>
+                        ))}
+                    </Slider>
                 </div>
             </div>
         </section>

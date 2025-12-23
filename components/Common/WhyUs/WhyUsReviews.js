@@ -102,7 +102,7 @@ const settings = {
         <section className="customer-served-wrap cv-auto">
             <div className="container">
                 <div className="xl-title text-uppercase mb-2">
-                    Don't Take our Word for it!
+                    Don&apos;t Take our Word for it!
                 </div>
                 <div className="lg-title fw-normal text-center font-40 mb-5 text-uppercase">
                     See what our Customers Have to Say!
@@ -111,7 +111,7 @@ const settings = {
                     <Slider ref={sliderRef} key={slidesToShow} {...settings} className="wbecs-slider">
                         {reviewsList.map((review, index) => (
                             <div key={index}>
-                                <div className="wbe-cs-box  " data-wow-duration="1s" data-wow-delay="0.1s">
+                                <div className="wbe-cs-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
                                     <div className="flex items-center justify-content-between mb-2">
                                         <div className="flex items-center gap-2">
                                             <div className="wbe-cs-circle" style={{ backgroundColor: review.bgColor }}>

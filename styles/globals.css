@@ -4,6 +4,10 @@
 @import "./react-styles.css";
 @import "./responsive.css";
 
+.wow {
+  visibility: hidden;
+}
+
 @keyframes fading-effect {
   from {
     opacity: 0;
