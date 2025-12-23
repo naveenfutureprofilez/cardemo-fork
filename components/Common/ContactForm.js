@@ -73,23 +73,23 @@ export default function ContactForm() {
             {({ handleSubmit, isSubmitting, status }) => (
                 <Form className="custom-form contact-form" autoComplete="off" name="contact-form" onSubmit={handleSubmit}>
                     <div className='form-group' onFocus={handleFocus}>
-                        <div className='cs-label'>Full Name <span className='text-danger font-15'>*</span></div>
-                        <Field type='text' name='full_name' className='form-control' />
+                        <label className='cs-label'>Full Name <span className='text-danger font-15'>*</span></label>
+                        <Field  type='text' name='full_name' className='form-control' />
                         <ErrorMessage name='full_name' component='div' className='text-error text-danger' />
                     </div>
                     <div className='form-group' onFocus={handleFocus}>
-                        <div className='cs-label'>Email <span className='text-danger font-15'>*</span></div>
-                        <Field type='email' name='email' className='form-control' />
+                        <label className='cs-label'>Email <span className='text-danger font-15'>*</span></label>
+                        <Field  type='email' name='email' className='form-control' />
                         <ErrorMessage name='email' component='div' className='text-error text-danger' />
                     </div>
                     <div className='form-group' onFocus={handleFocus}>
-                        <div className='cs-label'>Phone <span className='text-danger font-15'>*</span></div>
-                        <Field type='tel' name='phone' className='form-control' />
+                        <label className='cs-label'>Phone <span className='text-danger font-15'>*</span></label>
+                        <Field  type='tel' name='phone' className='form-control' />
                         <ErrorMessage name='phone' component='div' className='text-error text-danger' />
                     </div>
                     <div className='form-group' onFocus={handleFocus}>
-                        <div className='cs-label'>Message</div>
-                        <Field as='textarea' name='comment' rows='5' className='form-control' />
+                        <label className='cs-label'>Message</label>
+                        <Field  as='textarea' name='comment' rows='5' className='form-control' />
                         <ErrorMessage name='comment' component='div' className='text-error text-danger' />
                     </div>
 
