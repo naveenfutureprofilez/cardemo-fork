@@ -6,11 +6,11 @@ import { VehicleContext } from '../../context/VehicleContext';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import LazyLoadSection from '../Common/LazyLoadSection';
+import Header from '../Common/Header';
 const VdpContactForm = dynamic(() => import('./VdpContactForm'), { ssr: false });
 const VdpVehicleInfo = dynamic(() => import('./VdpVehicleInfo'), { ssr: false });
 const VdpAbout = dynamic(() => import('./VdpAbout'), { ssr: false });
 const Footer = dynamic(() => import('../Common/Footer'), { ssr: false });
-import Header from '../Common/Header';
 
 const Vdp = ({ initialVehicleData }) => {
     const text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -170,10 +170,10 @@ const Vdp = ({ initialVehicleData }) => {
                     fill   
                     priority
                     fetchPriority="high"
-                    quality={40}
                     style={{ objectFit: 'cover' }} 
                     sizes="100vw" 
                     placeholder="blur"
+                    quality={40}
                     blurDataURL="vdp-hero.webp?q=1"
                 />
             </section>
@@ -189,6 +189,9 @@ const Vdp = ({ initialVehicleData }) => {
                                         width={64} 
                                         height={64} 
                                         onError={() => setLogoError(true)}
+                                        placeholder="blur"
+                                        quality={50}
+                                        blurDataURL={(!logoError && brandLogoSrc) ? brandLogoSrc : getImages('alpha-one-logo.webp?q=1')}
                                     />
                                 </div>
                             </div>
