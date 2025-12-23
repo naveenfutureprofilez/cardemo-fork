@@ -29,10 +29,16 @@ const WhyUsContent = () => {
             <section className="about-wrap cv-auto">
                 <div className="d-lg-flex align-items-center">
                     <div className="aw-left w-50">
-                        <Image 
-                        src={getImages('about-side-bg.webp')} alt="Alpha One Motors" 
-                        width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" 
-                        style={{ width: '100%', height: 'auto' }} />
+                    <Image 
+                        src={getImages('about-side-bg.webp')} 
+                        alt="Alpha One Motors" 
+                        quality={40}
+                        width={1200} height={800} 
+                        sizes="(max-width: 768px) 100vw, 50vw" 
+                        style={{ width: '100%', height: 'auto' }}
+                        placeholder="blur"
+                        blurDataURL={getImages('about-side-bg.webp?quality=1')}
+                     />
                     </div>
                     <div className="aw-right w-50  "  >
                         <div className="mxw-560">
@@ -54,9 +60,14 @@ const WhyUsContent = () => {
                 <div className="d-lg-flex align-items-center reverse-block">
                     <div className="aw-left w-50 order-2">
                         <Image 
-                        src={getImages('about-side-bg2.webp')} alt="Sell Your Exotic" 
-                        width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" 
-                        style={{ width: '100%', height: 'auto' }} />
+                        src={getImages('about-side-bg2.webp')} 
+                        alt="Sell Your Exotic" 
+                        width={1200} height={800} 
+                        sizes="(max-width: 768px) 100vw, 50vw" 
+                        style={{ width: '100%', height: 'auto' }}
+                        placeholder="blur" quality={30}
+                        blurDataURL={getImages('about-side-bg2.webp?quality=1')}
+                         />
                     </div>
                     <div className="aw-right w-50    "  >
                         <div className="mxw-560">
