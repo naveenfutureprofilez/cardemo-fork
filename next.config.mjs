@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Optimize production builds
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
-  // Enable experimental features for better performance
   experimental: {
     optimizeCss: true,
-    // Optimize common package imports
+    // Opimize common package imports
     optimizePackageImports: ['react-icons', '@headlessui/react', 'formik'],
   },
   images: {
