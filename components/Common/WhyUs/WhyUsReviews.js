@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImages } from '@/components/Common/const';
@@ -59,6 +59,7 @@ const reviewsList = [
 const WhyUsReviews = () => {
     const [fallback, setFallback] = useState(false);
     const containerRef = useRef(null);
+    const sliderRef = useRef(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -75,6 +76,46 @@ const WhyUsReviews = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    const [bpKey, setBpKey] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const onResize = () => {
+            const w = typeof window !== 'undefined' ? window.innerWidth : 0;
+            const key = w < 768 ? 0 : w < 1024 ? 1 : 2;
+            setBpKey(key);
+            setIsMobile(w < 768);
+            try {
+                sliderRef.current?.innerSlider?.onWindowResized?.();
+                sliderRef.current?.slickGoTo?.(0, true);
+            } catch (_) {}
+        };
+        onResize();
+        window.addEventListener('resize', onResize);
+        window.addEventListener('orientationchange', onResize);
+        return () => {
+            window.removeEventListener('resize', onResize);
+            window.removeEventListener('orientationchange', onResize);
+        };
+    }, []);
+    useLayoutEffect(() => {
+        const id = setTimeout(() => {
+            try {
+                sliderRef.current?.innerSlider?.onWindowResized?.();
+            } catch (_) {}
+        }, 0);
+        return () => clearTimeout(id);
+    }, []);
+    useEffect(() => {
+        if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+            const ro = new ResizeObserver(() => {
+                try {
+                    sliderRef.current?.innerSlider?.onWindowResized?.();
+                } catch (_) {}
+            });
+            ro.observe(containerRef.current);
+            return () => ro.disconnect();
+        }
+    }, []);
     const settings = {
         dots: false,
         infinite: true,
@@ -84,7 +125,7 @@ const WhyUsReviews = () => {
         arrows: true,
         autoplay: false,
         adaptiveHeight: true,
-        mobileFirst: true,
+        // Use max-width breakpoints (default)
         responsive: [
             {
                 breakpoint: 1024,
@@ -106,7 +147,7 @@ const WhyUsReviews = () => {
     };
 
     return (
-        <section className="customer-served-wrap cv-auto">
+        <section className="customer-served-wrap" style={{ contentVisibility: 'visible' }}>
             <div className="container">
                 <div className="fading xl-title text-uppercase mb-2">
                     Don&apos;t Take our Word for it!
@@ -114,9 +155,9 @@ const WhyUsReviews = () => {
                 <div className="fading lg-title fw-normal text-center font-40 mb-5 text-uppercase">
                     See what our Customers Have to Say!
                 </div>
-                <div className="mt-70 fading" ref={containerRef}>
-                    {!fallback ? (
-                        <Slider {...settings} className="wbecs-slider">
+                <div className="mt-70 " ref={containerRef}>
+                    {!fallback && !isMobile ? (
+                        <Slider ref={sliderRef} key={bpKey} {...settings} className="wbecs-slider">
                             {reviewsList.map((review, index) => (
                                 <div key={index}>
                                     <div className="wbe-cs-box">
@@ -154,7 +195,7 @@ const WhyUsReviews = () => {
                             ))}
                         </Slider>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '20px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))', gap: '20px' }}>
                             {reviewsList.map((review, index) => (
                                 <div key={index}>
                                     <div className="wbe-cs-box">
