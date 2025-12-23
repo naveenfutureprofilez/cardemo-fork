@@ -34,7 +34,7 @@ export default function WhyUs() {
                     quality={35}
                     style={{ objectFit: 'cover', zIndex: -1 }}
                     placeholder="blur"
-                    blurDataURL={getImages('about-hero.webp?quality=5')}
+                    blurDataURL={getImages('about-hero.webp?quality=1')}
                 />
                 <div className="w-100" style={{ zIndex: 1 }}>
                     <div className=" xl-title text-uppercase text-center font-80 letter-spacing-3">
