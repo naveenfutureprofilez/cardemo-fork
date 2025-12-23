@@ -8,9 +8,7 @@ import Header from '../components/Common/Header';
 // import Footer from '../components/Common/Footer';
 import LazyLoadSection from '@/components/Common/LazyLoadSection';
 //import { Helmet } from 'react-helmet';
-
 const Footer = dynamic(() => import('../components/Common/Footer'), { ssr: false });
-
 const SellMyExoticReviews = dynamic(() => import('../components/Common/SellMyExotic/SellMyExoticReviews'), { 
     ssr: false,
     loading: () => <div style={{ height: '500px' }}></div>
@@ -66,11 +64,13 @@ const SellMyExotic = () => {
                         alt="Sell Your Exotic Car" 
                         fill 
                         priority
-                        quality={40}
+                        quality={30}
                         fetchPriority="high"
-                        className=''
                         sizes="100vw"
+                        className=''
                         style={{objectFit: 'cover', zIndex: -1}} 
+                        placeholder="blur"
+                        blurDataURL={getImages('sell-exotic-hero.webp?quality=1')}
                     />
                 </div>
                 <div className='w-100' style={{ zIndex: 1 }}>
@@ -94,7 +94,17 @@ const SellMyExotic = () => {
                                 <div className=' sm-title text-center roboto mt-100 fw-500 text-white'>Simple, Fast & Free</div>
                                 <div className=' text-center pt-3'>
                                         <span className='px-5 d-inline-block hpb-border-t pt-3'>
-                                            <Image src={getImages('tg-logo-bw.webp')} alt='Trade Group' width={120} height={36} />
+                                            <Image src={getImages('tg-logo-bw.webp')} 
+                                            alt='Trade Group' 
+                                            width={120} height={36}
+                                            placeholder="blur"
+                                            blurDataURL={getImages('tg-logo-bw.webp?quality=1')}
+                                            fill 
+                                            priority
+                                            quality={30}
+                                            fetchPriority="high"
+                                            sizes="100vw"
+                                             />
                                         </span>
                                 </div>
                             </div>

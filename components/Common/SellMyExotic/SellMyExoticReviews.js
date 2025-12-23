@@ -83,15 +83,15 @@ const SellMyExoticReviews = () => {
             <div className='container'>
                 <div className='fading hpb-xs-title text-uppercase mb-3'>Recent</div>
                 <div className='fading lg-title text-center font-40 text-uppercase mb-md-5 mb-4'>Google Reviews</div>
-                <div className='fading'>
+                <div className=''>
                     <Slider ref={sliderRef} {...settings} className='review-slider'>
                         {reviewsList.map((review, index) => (
                             <div className="review-item" key={index}>
                                 <div className="review-box">
-                                    <span className='google-icon'>
+                                    <span className='google-icon '>
                                         <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
                                     </span>
-                                    <div className="review-mnh">
+                                    <div className="review-mnh ">
                                         <p className="clamp-4">
                                             {review.content}
                                         </p>
