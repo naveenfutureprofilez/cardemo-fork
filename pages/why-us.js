@@ -34,7 +34,7 @@ export default function WhyUs() {
             <Header />
 
             <section 
-                className="common-banner-wrap d-flex align-items-center"
+                className="!h-[90vh] lg:!h-[400px] xl:!h-[580px] common-banner-wrap d-flex align-items-center"
                 style={{ position: 'relative', overflow: 'hidden' }}
             >
                 <Image 
