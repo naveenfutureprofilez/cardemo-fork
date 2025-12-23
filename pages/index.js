@@ -88,22 +88,8 @@ export default function Home() {
             alt="Banner" 
             priority 
             fetchPriority="high"
-            quality={40}
-            className="hidden md:visible slideshow-image"
-            width={1920}
-            height={1080}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            sizes="100vw"
-            placeholder="blur"
-            blurDataURL={getImages('banner-image.webp?quality=1')}
-          />
-          <Image 
-            src={getImages('banner-image.webp')} 
-            alt="Banner" 
-            priority 
-            fetchPriority="high"
             quality={30}
-            className="visible md:hidden slideshow-image"
+            className="slideshow-image"
             width={1920}
             height={1080}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
