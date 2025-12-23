@@ -23,10 +23,10 @@ export default function AboutUs() {
                     fill 
                     priority 
                     fetchPriority="high"
-                    quality={40}
+                    quality={30}
                     sizes="100vw"
                     placeholder="blur"
-                    blurDataURL="data:image/webp;base64,UklGRhIAAABXRUJQVlA4IAYAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="
+                    blurDataURL="new-about-hero.webp?q=1"
                     style={{objectFit: 'cover', zIndex: -1}} 
                 />
                 <div className="w-100" style={{ zIndex: 1 }}>
@@ -39,9 +39,9 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <div style={{ minHeight: '500px' }}>
+            {/* <div style={{ minHeight: '500px' }}> */}
                 <AboutContent />
-            </div>
+            {/* </div> */}
 
             <Footer />
         </>

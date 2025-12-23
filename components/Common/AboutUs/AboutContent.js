@@ -12,7 +12,9 @@ const AboutContent = () => {
                         alt="Alpha One Motors Team" 
                         width={1200} className=' '
                         height={600} 
-                        sizes="(max-width: 768px) 100vw, 1100px"
+                        sizes="100vw" quality={30}
+                        placeholder="blur"
+                        blurDataURL="about-team.webp?q=1"
                         style={{ width: '100%', height: 'auto' }}
                     />
                     <div className="d-flex align-items-center justify-content-between atb-flex">
