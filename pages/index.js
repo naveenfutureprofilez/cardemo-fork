@@ -90,8 +90,8 @@ export default function Home() {
             fetchPriority="high"
             quality={30}
             className="slideshow-image"
-            width={1920}
-            height={1080}
+            width={1080}
+            height={600}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
             sizes="100vw"
             // placeholder="blur"
