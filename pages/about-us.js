@@ -56,14 +56,10 @@ export default function AboutUs() {
             </section>
 
         
-            {showFooter && 
-                <>
-                    <div style={{ minHeight: '500px' }}>
-                        <AboutContent />
-                    </div>
-                    <Footer />
-                </>
-            }
+            <div style={{ minHeight: '500px' }}>
+                <AboutContent />
+            </div>
+            {showFooter &&  <Footer /> }
         </>
     );
 }
