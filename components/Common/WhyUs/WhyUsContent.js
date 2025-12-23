@@ -7,7 +7,7 @@ const WhyUsContent = () => {
         <>
             <section className="about-info-wrap cv-auto">
                 <div className="container">
-                    <div className="d-md-flex align-items-center justify-content-between">
+                    <div className="flex flex-wrap gap-3 align-items-center justify-content-between">
                             <div className="fading d-inline-flex align-items-center">
                                 <div className="xl-title text-uppercase pe-3">+5k</div>
                                 <div className="sm-title fw-500">Customers Served</div>
