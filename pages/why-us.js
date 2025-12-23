@@ -34,7 +34,7 @@ export default function WhyUs() {
             <Header />
 
             <section 
-                className="!h-[70vh] lg:!h-[400px] xl:!h-[580px] common-banner-wrap d-flex align-items-center"
+                className=" common-banner-wrap d-flex align-items-center"
                 style={{ position: 'relative', overflow: 'hidden' }}
             >
                 <Image 
@@ -44,7 +44,7 @@ export default function WhyUs() {
                     priority  
                     fetchPriority="high" 
                     sizes="100vw" 
-                    quality={10}
+                    quality={30}
                     style={{ objectFit: 'cover', zIndex: -1 }}
                     placeholder="blur"
                     blurDataURL={getImages('about-hero.webp?quality=1')}
