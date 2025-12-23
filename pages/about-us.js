@@ -30,14 +30,14 @@ export default function AboutUs() {
             />
             <Header />
 
-            <section className="common-banner-wrap d-flex align-items-center" style={{position: 'relative', overflow: 'hidden'}}  >
+            <section className="common-banner-wrap min-h-[400px] d-flex align-items-center" style={{position: 'relative', overflow: 'hidden'}}  >
                 <Image 
                     src={getImages('new-about-hero.webp')} 
                     alt="About Us" 
-                    fill 
                     priority 
                     fetchPriority="high"
                     quality={30}
+                    fill
                     sizes="100vw"
                     placeholder="blur"
                     blurDataURL="new-about-hero.webp?q=1"
