@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImages } from '../../Common/const';
@@ -58,15 +58,76 @@ const reviewsList = [
 
 const SellMyExoticReviews = () => {
     const sliderRef = useRef(null);
+    const containerRef = useRef(null);
+    const [fallback, setFallback] = useState(false);
+    const [bpKey, setBpKey] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            try {
+                const root = containerRef.current;
+                if (!root) return;
+                const slides = root.querySelectorAll('.slick-slide');
+                const visible = Array.from(slides).some(s => s.offsetWidth > 0 && s.offsetHeight > 0);
+                if (!visible) setFallback(true);
+            } catch (_) {
+                setFallback(true);
+            }
+        }, 800);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        const onResize = () => {
+            const w = typeof window !== 'undefined' ? window.innerWidth : 0;
+            const key = w < 992 ? 0 : 1;
+            setBpKey(key);
+            setIsMobile(w < 992);
+            try {
+                sliderRef.current?.innerSlider?.onWindowResized?.();
+                sliderRef.current?.slickGoTo?.(0, true);
+            } catch (_) {}
+        };
+        onResize();
+        window.addEventListener('resize', onResize);
+        window.addEventListener('orientationchange', onResize);
+        return () => {
+            window.removeEventListener('resize', onResize);
+            window.removeEventListener('orientationchange', onResize);
+        };
+    }, []);
+
+    useLayoutEffect(() => {
+        const id = setTimeout(() => {
+            try {
+                sliderRef.current?.innerSlider?.onWindowResized?.();
+            } catch (_) {}
+        }, 0);
+        return () => clearTimeout(id);
+    }, []);
+
+    useEffect(() => {
+        if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+            const ro = new ResizeObserver(() => {
+                try {
+                    sliderRef.current?.innerSlider?.onWindowResized?.();
+                } catch (_) {}
+            });
+            ro.observe(containerRef.current);
+            return () => ro.disconnect();
+        }
+    }, []);
 
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 2,
         autoplay: false,
         arrows: true,
+        adaptiveHeight: true,
         responsive: [
             {
                 breakpoint: 992,
@@ -79,37 +140,66 @@ const SellMyExoticReviews = () => {
     };
 
     return (
-        <section className='reviews-wrap'>
+        <section className='reviews-wrap' style={{ contentVisibility: 'visible' }}>
             <div className='container'>
                 <div className='fading hpb-xs-title text-uppercase mb-3'>Recent</div>
                 <div className='fading lg-title text-center font-40 text-uppercase mb-md-5 mb-4'>Google Reviews</div>
-                <div className=''>
-                    <Slider ref={sliderRef} {...settings} className='review-slider'>
-                        {reviewsList.map((review, index) => (
-                            <div className="review-item" key={index}>
-                                <div className="review-box">
-                                    <span className='google-icon '>
-                                        <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
-                                    </span>
-                                    <div className="review-mnh ">
-                                        <p className="clamp-4">
-                                            {review.content}
-                                        </p>
-                                    </div>
-                                    <div className="d-block align-items-end justify-content-between mt-1">
-                                        <div className='cv-auto'>
-                                            <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
-                                                ))}
+                <div className='' ref={containerRef}>
+                    {!fallback && !isMobile ? (
+                        <Slider ref={sliderRef} key={bpKey} {...settings} className='review-slider'>
+                            {reviewsList.map((review, index) => (
+                                <div className="review-item" key={index}>
+                                    <div className="review-box">
+                                        <span className='google-icon '>
+                                            <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
+                                        </span>
+                                        <div className="review-mnh ">
+                                            <p className="clamp-4">
+                                                {review.content}
+                                            </p>
+                                        </div>
+                                        <div className="d-block align-items-end justify-content-between mt-1">
+                                            <div>
+                                                <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
+                                                    {[...Array(5)].map((_, i) => (
+                                                        <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
+                                                    ))}
+                                                </div>
+                                                <div className="reviewer-name">{review.name}</div>
                                             </div>
-                                            <div className="reviewer-name">{review.name}</div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </Slider>
+                            ))}
+                        </Slider>
+                    ) : (
+                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: '20px' }}>
+                            {reviewsList.map((review, index) => (
+                                <div className="review-item" key={index}>
+                                    <div className="review-box">
+                                        <span className='google-icon '>
+                                            <Image src={getImages('google-logo.webp')} alt='google' width={100} height={32} style={{width: 'auto', height: 'auto'}} />
+                                        </span>
+                                        <div className="review-mnh ">
+                                            <p className="clamp-4">
+                                                {review.content}
+                                            </p>
+                                        </div>
+                                        <div className="d-block align-items-end justify-content-between mt-1">
+                                            <div>
+                                                <div className="mb-md-3 mb-2 d-inline-flex align-items-center">
+                                                    {[...Array(5)].map((_, i) => (
+                                                        <Image key={i} className="me-1" src={getImages("star.svg")} alt="star" width={16} height={16} />
+                                                    ))}
+                                                </div>
+                                                <div className="reviewer-name">{review.name}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
