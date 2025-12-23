@@ -3,10 +3,10 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getImages } from '@/components/Common/const';
 import Header from '../components/Common/Header';
-// import SeoMeta from '../components/Common/SeoMeta';
+import SeoMeta from '../components/Common/SeoMeta';
 // import WhyUsContent from '../components/Common/WhyUs/WhyUsContent';
 // import LazyLoadSection from '../components/Common/LazyLoadSection';
-const SeoMeta = dynamic(() => import('../components/Common/SeoMeta'), { ssr: true });
+// const SeoMeta = dynamic(() => import('../components/Common/SeoMeta'), { ssr: true });
 const WhyUsReviews = dynamic(() => import('../components/Common/WhyUs/WhyUsReviews'), { ssr: false });
 const WhyUsContent = dynamic(() => import('../components/Common/WhyUs/WhyUsContent'), { ssr: false });
 const Footer = dynamic(() => import('../components/Common/Footer'), { ssr: false });
@@ -31,7 +31,7 @@ export default function WhyUs() {
                     priority  
                     fetchPriority="high" 
                     sizes="100vw" 
-                    quality={20}
+                    quality={10}
                     style={{ objectFit: 'cover', zIndex: -1 }}
                     placeholder="blur"
                     blurDataURL={getImages('about-hero.webp?quality=1')}
