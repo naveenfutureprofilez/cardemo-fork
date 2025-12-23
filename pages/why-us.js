@@ -6,7 +6,7 @@ import Header from '../components/Common/Header';
 // import SeoMeta from '../components/Common/SeoMeta';
 // import WhyUsContent from '../components/Common/WhyUs/WhyUsContent';
 // import LazyLoadSection from '../components/Common/LazyLoadSection';
-const SeoMeta = dynamic(() => import('../components/Common/SeoMeta'), { ssr: false });
+const SeoMeta = dynamic(() => import('../components/Common/SeoMeta'), { ssr: true });
 const WhyUsReviews = dynamic(() => import('../components/Common/WhyUs/WhyUsReviews'), { ssr: false });
 const WhyUsContent = dynamic(() => import('../components/Common/WhyUs/WhyUsContent'), { ssr: false });
 const Footer = dynamic(() => import('../components/Common/Footer'), { ssr: false });
@@ -26,15 +26,15 @@ export default function WhyUs() {
             >
                 <Image 
                     src={getImages('about-hero.webp')} 
-                    alt="Why Choose Us" 
-                    fill
-                    priority 
-                    fetchPriority="high"
-                    sizes="100vw"
-                    quality={20}
+                    alt="Why Choose Us"  
+                    fill 
+                    priority  
+                    fetchPriority="high" 
+                    sizes="100vw" 
+                    quality={30}
                     style={{ objectFit: 'cover', zIndex: -1 }}
                     placeholder="blur"
-                    blurDataURL={getImages('about-hero.webp?quality=5')}
+                    blurDataURL={getImages('about-hero.webp?quality=1')}
                 />
                 <div className="w-100" style={{ zIndex: 1 }}>
                     <div className=" xl-title text-uppercase text-center font-80 letter-spacing-3">
