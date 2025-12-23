@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense } from 'react'
+import React, { useRef, useState, Suspense, useEffect } from 'react'
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImages } from '../components/Common/const'
@@ -44,6 +44,19 @@ const SellMyExotic = () => {
     const [files, setFiles] = useState([]);
 
     
+
+    const [showFooter, setShowFooter] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 400) {
+            setShowFooter(true);
+            window.removeEventListener('scroll', handleScroll);
+            }
+        };
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
 
     return (
@@ -129,7 +142,7 @@ const SellMyExotic = () => {
                         </div>
                     </div>
                 </section>
-                
+                {showFooter ?
                 <LazyLoadSection rootMargin="300px" height="500px">
                     <SellMyExoticReviews />
                     <section className='sell-or-trade-wrap'>
@@ -155,14 +168,15 @@ const SellMyExotic = () => {
                         </div>
                     </section>
                 </LazyLoadSection>
+                : ''
+                }
+                
             </main>
             
+            {showFooter ?
             <LazyLoadSection rootMargin="300px" height="400px">
                 <SellMyExoticTips />
-            </LazyLoadSection>
-            <LazyLoadSection rootMargin="300px" height="500px">
                 <SellMyExoticFaq />
-                
                 <ModalLayout open={getQuoteModal} close={closeGetQuoteModal} darkThemeCls='true' cls="dark-bg-modal" modalWidth={750}>
                     <Suspense
                         fallback={<div>Component1 are loading please wait...</div>}
@@ -178,7 +192,8 @@ const SellMyExotic = () => {
                     </Suspense>
                 </ModalLayout>
                 <Footer />
-            </LazyLoadSection>
+            </LazyLoadSection> 
+            : ''}
 
         </>
     )
